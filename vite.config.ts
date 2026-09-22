@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => ({
     tanstackStart({ server: { entry: "server" } }),
     react(),
     tailwindcss(),
-    nitro({ preset: mode === "spaceship" ? "node-server" : "vercel" }),
+    nitro({ preset: mode === "spaceship" ? "node-server" : "netlify" }),
   ],
   resolve: {
     tsconfigPaths: true,

@@ -3,7 +3,7 @@ import { P as require_react, _ as require_jsx_runtime } from "../_libs/@tanstack
 import { a as useTransform, c as useMotionValueEvent, i as useSpring, l as motion, n as animate, o as useMotionValue, r as useReducedMotion, s as useScroll, t as useInView, u as AnimatePresence } from "../_libs/framer-motion+[...].mjs";
 import { n as clsx, t as cva } from "../_libs/class-variance-authority+clsx.mjs";
 import { t as twMerge } from "../_libs/tailwind-merge.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-uGgt6h5A.js
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-ptPJKtHt.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var feature_shield_default = "/assets/feature-shield-B8ebl3ai.jpg";
@@ -11,10 +11,23 @@ var feature_charts_default = "/assets/feature-charts-DiRm3nSh.jpg";
 function cn(...inputs) {
 	return twMerge(clsx(inputs));
 }
-function Logo({ className }) {
+function Logo({ className, compact = false }) {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-		className: cn("font-display relative inline-flex items-baseline text-xl font-semibold tracking-tight", className),
-		children: ["CODRITHM", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "ml-0.5 size-2 translate-y-[-0.85em] rounded-full bg-[image:var(--gradient-solar)] shadow-[0_0_14px_2px_color-mix(in_oklab,var(--primary)_60%,transparent)]" })]
+		className: cn("font-display relative inline-flex h-9 max-w-full shrink-0 items-center gap-2 overflow-hidden whitespace-nowrap text-xl font-semibold tracking-tight", className),
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+			src: "/codrithm-mark.png",
+			alt: "",
+			width: 32,
+			height: 32,
+			className: "size-8 shrink-0 rounded-full object-cover",
+			style: {
+				width: 32,
+				height: 32
+			}
+		}), !compact && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+			className: "truncate",
+			children: "CODRITHM"
+		})]
 	});
 }
 function Icon({ children, ...props }) {
@@ -156,7 +169,7 @@ var MOBILE_BREAKPOINT = 768;
 function useIsMobile() {
 	const [isMobile, setIsMobile] = import_react.useState(void 0);
 	import_react.useEffect(() => {
-		const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
+		const mql = window.matchMedia(`(max-width: 767px)`);
 		const onChange = () => {
 			setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
 		};
@@ -241,7 +254,7 @@ var ease$4 = [
 ];
 /** Distances shrink on small screens so nothing overflows horizontally. */
 var makeVariants = (name, compact = false) => {
-	const y = compact ? 30 * .8 : 50;
+	const y = compact ? 24 : 50;
 	const x = compact ? 0 : 40;
 	switch (name) {
 		case "fade": return {
@@ -399,7 +412,7 @@ var links = [
 		href: "#home"
 	},
 	{
-		label: "Features",
+		label: "Services",
 		href: "#features"
 	},
 	{
@@ -407,11 +420,11 @@ var links = [
 		href: "#about"
 	},
 	{
-		label: "Pricing",
+		label: "Community",
 		href: "#pricing"
 	},
 	{
-		label: "Blog",
+		label: "Projects",
 		href: "#blog"
 	},
 	{
@@ -466,7 +479,7 @@ function Navbar() {
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(AnimatedButton, {
 							size: "md",
 							className: "hidden sm:inline-flex",
-							children: "Book a Demo"
+							children: "Work with us"
 						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
 							"aria-label": open ? "Close menu" : "Open menu",
 							onClick: () => setOpen((v) => !v),
@@ -539,7 +552,7 @@ function Navbar() {
 					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AnimatedButton, {
 						size: "lg",
 						className: "w-full",
-						children: "Book a Demo"
+						children: "Work with us"
 					})
 				})]
 			})
@@ -643,7 +656,10 @@ function DashboardMockup() {
 			variants: item,
 			className: "flex items-center justify-between gap-4 border-b border-border px-4 py-3 sm:px-6",
 			children: [
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Logo, { className: "text-sm" }),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Logo, {
+					compact: true,
+					className: "text-sm"
+				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 					className: "hidden items-center gap-5 text-xs text-muted-foreground md:flex",
 					children: [
@@ -1409,7 +1425,8 @@ function Parallax({ children, className, distance = 20 }) {
 		target: ref,
 		offset: ["start end", "end start"]
 	});
-	const y = useSpring(useTransform(scrollYProgress, [0, 1], [distance, -distance]), {
+	const raw = useTransform(scrollYProgress, [0, 1], [distance, -distance]);
+	const y = useSpring(raw, {
 		stiffness: 80,
 		damping: 26,
 		mass: .5

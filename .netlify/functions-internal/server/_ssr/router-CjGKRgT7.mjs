@@ -1,7 +1,7 @@
 import { _ as require_jsx_runtime, c as HeadContent, d as Outlet, f as lazyRouteComponent, g as useRouter, h as Link, m as createRootRouteWithContext, p as createFileRoute, s as Scripts, u as createRouter } from "../_libs/@tanstack/react-router+[...].mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-DY0vpdbL.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-CjGKRgT7.js
 var import_jsx_runtime = require_jsx_runtime();
-var styles_default = "/assets/styles-DRMAjamU.css";
+var styles_default = "/assets/styles-CdHBa9nr.css";
 function NotFoundComponent() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 		className: "flex min-h-screen items-center justify-center bg-background px-4",
@@ -109,8 +109,19 @@ var Route$1 = createRootRouteWithContext()({
 			},
 			{
 				rel: "icon",
-				href: "/favicon.ico",
-				type: "image/x-icon"
+				href: "/codrithm-favicon.png?v=2",
+				type: "image/png",
+				sizes: "180x180"
+			},
+			{
+				rel: "shortcut icon",
+				href: "/codrithm-favicon.png?v=2",
+				type: "image/png"
+			},
+			{
+				rel: "apple-touch-icon",
+				href: "/codrithm-favicon.png?v=2",
+				sizes: "180x180"
 			}
 		]
 	}),
@@ -128,7 +139,7 @@ function RootShell({ children }) {
 function RootComponent() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Outlet, {});
 }
-var $$splitComponentImporter = () => import("./routes-uGgt6h5A.mjs");
+var $$splitComponentImporter = () => import("./routes-ptPJKtHt.mjs");
 var rootRouteChildren = { IndexRoute: createFileRoute("/")({
 	head: () => ({ meta: [
 		{ title: "Codrithm — Where Coders Make History" },
