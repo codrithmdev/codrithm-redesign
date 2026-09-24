@@ -65,15 +65,15 @@ export function Navbar() {
             <button
               aria-label={open ? "Close menu" : "Open menu"}
               onClick={() => setOpen((v) => !v)}
-              className="relative flex size-10 items-center justify-center rounded-full border border-border lg:hidden"
+              className="relative flex size-10 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-[var(--shadow-glow)] transition-colors hover:bg-primary/90 lg:hidden"
             >
               <motion.span
-                className="absolute h-px w-5 bg-foreground"
+                className="absolute h-px w-5 bg-primary-foreground"
                 animate={open ? { rotate: 45, y: 0 } : { rotate: 0, y: -4 }}
                 transition={tNormal}
               />
               <motion.span
-                className="absolute h-px w-5 bg-foreground"
+                className="absolute h-px w-5 bg-primary-foreground"
                 animate={open ? { rotate: -45, y: 0 } : { rotate: 0, y: 4 }}
                 transition={tNormal}
               />

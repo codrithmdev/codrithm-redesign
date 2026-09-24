@@ -59,12 +59,7 @@ export function Pricing() {
                 whileHover={reduced ? {} : { scale: 1.02, y: -2 }}
                 whileTap={reduced ? {} : { scale: 0.98 }}
                 transition={tHover}
-                className={cn(
-                  "group mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-medium transition-colors duration-300",
-                  plan.featured
-                    ? "bg-[image:var(--gradient-solar)] text-primary-foreground glow-ring"
-                    : "border border-border-strong bg-elevated/70 text-foreground hover:border-primary/60",
-                )}
+                className="group mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-medium text-primary-foreground shadow-[var(--shadow-glow)] transition-colors duration-300 hover:bg-primary/90"
               >
                 Join Codrithm
                 <ArrowRight className="size-4 transition-transform duration-200 ease-[var(--ease-standard)] group-hover:translate-x-1" />

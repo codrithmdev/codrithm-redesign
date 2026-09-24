@@ -63,7 +63,7 @@ export function Testimonials() {
               onClick={() => go(-1)}
               whileHover={{ scale: 1.06, y: -2 }}
               whileTap={{ scale: 0.94 }}
-              className="grid size-10 place-items-center rounded-full border border-border-strong bg-elevated/70 transition-colors hover:border-primary/60"
+              className="grid size-10 place-items-center rounded-full bg-primary text-primary-foreground shadow-[var(--shadow-glow)] transition-colors hover:bg-primary/90"
             >
               <ArrowLeft className="size-4" />
             </motion.button>
@@ -76,9 +76,7 @@ export function Testimonials() {
                   onClick={() => setState([i, i > index ? 1 : -1])}
                   className={cn(
                     "h-1.5 rounded-full transition-all duration-500 ease-[var(--ease-standard)]",
-                    i === index
-                      ? "w-7 bg-[image:var(--gradient-solar)]"
-                      : "w-1.5 bg-border-strong hover:bg-muted-foreground",
+                    i === index ? "w-7 bg-primary" : "w-1.5 bg-primary hover:bg-primary",
                   )}
                 />
               ))}
@@ -89,7 +87,7 @@ export function Testimonials() {
               onClick={() => go(1)}
               whileHover={{ scale: 1.06, y: -2 }}
               whileTap={{ scale: 0.94 }}
-              className="grid size-10 place-items-center rounded-full border border-border-strong bg-elevated/70 transition-colors hover:border-primary/60"
+              className="grid size-10 place-items-center rounded-full bg-primary text-primary-foreground shadow-[var(--shadow-glow)] transition-colors hover:bg-primary/90"
             >
               <ArrowRight className="size-4" />
             </motion.button>

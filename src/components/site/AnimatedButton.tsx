@@ -12,10 +12,10 @@ const buttonStyles = cva(
     variants: {
       variant: {
         solar:
-          "bg-[image:var(--gradient-solar)] text-primary-foreground glow-ring hover:brightness-110",
+          "bg-primary text-primary-foreground shadow-[var(--shadow-glow)] hover:bg-primary/90",
         outline:
-          "border border-border-strong bg-elevated/60 text-foreground backdrop-blur-sm hover:border-primary/60 hover:bg-elevated",
-        ghost: "text-muted-foreground hover:text-foreground",
+          "bg-primary text-primary-foreground shadow-[var(--shadow-glow)] hover:bg-primary/90",
+        ghost: "bg-primary text-primary-foreground shadow-[var(--shadow-glow)] hover:bg-primary/90",
       },
       size: {
         sm: "px-4 py-2 text-sm",

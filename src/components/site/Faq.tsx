@@ -41,13 +41,13 @@ export function Faq() {
                 <button
                   onClick={() => setOpen(isOpen ? null : i)}
                   aria-expanded={isOpen}
-                  className="flex w-full items-center justify-between gap-6 px-6 py-5 text-left"
+                  className="flex w-full items-center justify-between gap-6 bg-primary px-6 py-5 text-left text-primary-foreground transition-colors hover:bg-primary/90"
                 >
                   <span className="font-display text-base sm:text-lg">{item.q}</span>
                   <motion.span
                     animate={{ rotate: isOpen ? 45 : 0 }}
                     transition={{ duration: 0.45, ease }}
-                    className="grid size-8 shrink-0 place-items-center rounded-full border border-border bg-elevated/70"
+                    className="grid size-8 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground shadow-[var(--shadow-glow)]"
                   >
                     <Plus className="size-4" />
                   </motion.span>
