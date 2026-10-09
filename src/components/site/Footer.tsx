@@ -16,12 +16,9 @@ export function Footer() {
         <div className="grid gap-12 lg:grid-cols-[1.4fr_2fr]">
           <Reveal variant="fadeUp">
             <Logo />
-            <h2 className="font-display mt-6 max-w-sm text-3xl leading-tight sm:text-4xl">
-              Where coders learn, build, and grow together.
-            </h2>
             <p className="mt-4 max-w-sm text-sm text-muted-foreground">
-              Codrithm is a student-driven technology community grounded in ethical values,
-              continuous learning, and mutual support.
+              Codrithm develops websites, custom software, and AI automation tools while supporting
+              a community of people learning and building with technology.
             </p>
           </Reveal>
 

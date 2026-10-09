@@ -3,10 +3,11 @@ import { n as projects } from "./projects-Cjfi-7DJ.mjs";
 import { I as require_react, g as Link, v as require_jsx_runtime } from "../_libs/@tanstack/react-router+[...].mjs";
 import { a as useScroll, c as AnimatePresence, i as useMotionValue, n as useSpring, r as useTransform, s as motion } from "../_libs/framer-motion+[...].mjs";
 import { a as VIEWPORT_LOOSE, c as headingWord, h as useMotionPrefs, i as VIEWPORT, o as cn, p as tHover, s as headingLine, t as Reveal } from "./reveal-BeV1ECYS.mjs";
+import { a as Bell, c as Package, d as Sparkles, f as Users, i as BarChart3, l as Plus, n as ArrowRight, o as ChevronDown, r as ArrowUpRight, s as Megaphone, t as Activity, u as Settings } from "./icons-d-ZqtYhg.mjs";
+import { n as communityCollaborations } from "./community-BW05m-F1.mjs";
 import { n as services } from "./services-DwCL1mA1.mjs";
 import { n as Stagger, r as StaggerItem, t as Logo } from "./stagger-Ds8zeSOp.mjs";
-import { a as Bell, c as Package, d as Sparkles, f as Users, i as BarChart3, l as Plus, n as ArrowRight, o as ChevronDown, r as ArrowUpRight, s as Megaphone, t as Activity, u as Settings } from "./icons-d-ZqtYhg.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-BQS8o2Xl.js
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-DO1zvGkb.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var sun_arc_default = "/assets/sun-arc-BihVBNz1.jpg";
@@ -503,7 +504,6 @@ function Hero() {
 		]
 	});
 }
-var communityCollaborations = [];
 function LogoMarquee() {
 	const { reduced } = useMotionPrefs();
 	const [paused, setPaused] = (0, import_react.useState)(false);
@@ -833,29 +833,6 @@ function Faq() {
 		})]
 	});
 }
-/** Subtle depth: element drifts a few px against the page scroll. */
-function Parallax({ children, className, distance = 20 }) {
-	const ref = (0, import_react.useRef)(null);
-	const { allowParallax } = useMotionPrefs();
-	const { scrollYProgress } = useScroll({
-		target: ref,
-		offset: ["start end", "end start"]
-	});
-	const raw = useTransform(scrollYProgress, [0, 1], [distance, -distance]);
-	const y = useSpring(raw, {
-		stiffness: 80,
-		damping: 26,
-		mass: .5
-	});
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-		ref,
-		className: cn(className),
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
-			...allowParallax ? { style: { y } } : {},
-			children
-		})
-	});
-}
 function CtaSection() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
 		className: "mx-auto w-full max-w-7xl px-5 pb-24 lg:px-8 lg:pb-32",
@@ -863,9 +840,9 @@ function CtaSection() {
 			variant: "scaleReveal",
 			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "surface-card relative overflow-hidden rounded-3xl px-6 py-14 sm:px-12 lg:py-20",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute inset-x-0 -bottom-24 h-56 bg-[radial-gradient(ellipse_at_center,color-mix(in_oklab,var(--primary)_35%,transparent),transparent_70%)]" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "relative grid items-center gap-12 lg:grid-cols-2",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Reveal, {
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute inset-x-0 -bottom-24 h-56 bg-[radial-gradient(ellipse_at_center,color-mix(in_oklab,var(--primary)_25%,transparent),transparent_70%)]" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "relative max-w-2xl",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Reveal, {
 						variant: "fadeUp",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
 							className: "font-display max-w-md text-3xl leading-tight sm:text-4xl",
@@ -891,36 +868,6 @@ function CtaSection() {
 							className: "text-sm font-medium text-foreground transition-colors hover:text-primary",
 							children: "Explore Our Community"
 						})]
-					})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Reveal, {
-						variant: "fadeRight",
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Parallax, {
-							distance: 10,
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {
-								initial: {
-									opacity: 0,
-									scale: .97
-								},
-								whileInView: {
-									opacity: 1,
-									scale: 1
-								},
-								viewport: {
-									once: true,
-									amount: .2
-								},
-								transition: {
-									duration: .7,
-									ease: [
-										.22,
-										1,
-										.36,
-										1
-									]
-								},
-								className: "lg:translate-x-6",
-								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DashboardMockup, {})
-							})
-						})
 					})]
 				})]
 			})

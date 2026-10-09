@@ -1,8 +1,8 @@
 import { m as createFileRoute, p as lazyRouteComponent } from "../_libs/@tanstack/react-router+[...].mjs";
 import { t as serviceSlugs } from "./services-DwCL1mA1.mjs";
 import { n as objectType, t as enumType } from "../_libs/zod.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/contact-A_DKbyFF.js
-var $$splitComponentImporter = () => import("./contact-DRl3SYFW.mjs");
+//#region node_modules/.nitro/vite/services/ssr/assets/contact-CAxMIdml.js
+var $$splitComponentImporter = () => import("./contact-_T-gjU6b.mjs");
 var contactTypeSchema = enumType([
 	"project",
 	"partnership",
@@ -16,7 +16,7 @@ var Route = createFileRoute("/contact")({
 	validateSearch: contactSearchSchema,
 	head: () => ({ meta: [{ title: "Contact | Codrithm" }, {
 		name: "description",
-		content: "Contact Codrithm about a project, partnership, or general question."
+		content: "Start a project, partnership, or general inquiry with Codrithm."
 	}] }),
 	component: lazyRouteComponent($$splitComponentImporter, "component")
 });

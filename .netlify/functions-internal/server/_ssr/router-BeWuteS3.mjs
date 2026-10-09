@@ -4,12 +4,12 @@ import { I as require_react, _ as useRouter, c as HeadContent, d as createRouter
 import { t as Route$7 } from "../_slug-15lpU3qi.mjs";
 import { a as useScroll, c as AnimatePresence, o as useMotionValueEvent, s as motion } from "../_libs/framer-motion+[...].mjs";
 import { l as mobileMenuItem, m as tNormal, o as cn, t as Reveal } from "./reveal-BeV1ECYS.mjs";
-import { t as Route$8 } from "./contact-A_DKbyFF.mjs";
+import { t as Route$8 } from "./contact-CAxMIdml.mjs";
 import { n as Stagger, r as StaggerItem, t as Logo } from "./stagger-Ds8zeSOp.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-B7rDwj_p.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-BeWuteS3.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
-var styles_default = "/assets/styles-DdhOQn2s.css";
+var styles_default = "/assets/styles-BtvRlpAN.css";
 var columns = [{
 	title: "Explore",
 	links: navigationItems
@@ -29,17 +29,10 @@ function Footer() {
 				className: "grid gap-12 lg:grid-cols-[1.4fr_2fr]",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Reveal, {
 					variant: "fadeUp",
-					children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Logo, {}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
-							className: "font-display mt-6 max-w-sm text-3xl leading-tight sm:text-4xl",
-							children: "Where coders learn, build, and grow together."
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-							className: "mt-4 max-w-sm text-sm text-muted-foreground",
-							children: "Codrithm is a student-driven technology community grounded in ethical values, continuous learning, and mutual support."
-						})
-					]
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Logo, {}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "mt-4 max-w-sm text-sm text-muted-foreground",
+						children: "Codrithm develops websites, custom software, and AI automation tools while supporting a community of people learning and building with technology."
+					})]
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Stagger, {
 					className: "grid gap-10 sm:grid-cols-2",
 					stagger: .08,
@@ -374,7 +367,7 @@ function RootComponent() {
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Footer, {})
 	] });
 }
-var $$splitComponentImporter$5 = () => import("./routes-BQS8o2Xl.mjs");
+var $$splitComponentImporter$5 = () => import("./routes-DO1zvGkb.mjs");
 var Route$5 = createFileRoute("/")({
 	head: () => ({ meta: [
 		{ title: "Codrithm — Software that makes work easier" },
@@ -401,43 +394,43 @@ var Route$5 = createFileRoute("/")({
 	] }),
 	component: lazyRouteComponent($$splitComponentImporter$5, "component")
 });
-var $$splitComponentImporter$4 = () => import("./about-BzjS9Iw3.mjs");
+var $$splitComponentImporter$4 = () => import("./about-7OU7kznl.mjs");
 var Route$4 = createFileRoute("/about")({
 	head: () => ({ meta: [{ title: "About | Codrithm" }, {
 		name: "description",
-		content: "Learn how Codrithm connects practical technology services with a technology community."
+		content: "How Codrithm connects practical software work with a technology community."
 	}] }),
 	component: lazyRouteComponent($$splitComponentImporter$4, "component")
 });
-var $$splitComponentImporter$3 = () => import("./community-DQh8ft7a.mjs");
+var $$splitComponentImporter$3 = () => import("./community-Dm3CE3xg.mjs");
 var Route$3 = createFileRoute("/community")({
 	head: () => ({ meta: [{ title: "Community | Codrithm" }, {
 		name: "description",
-		content: "Learn about Codrithm's technology community, practical learning, and collaboration."
+		content: "Codrithm's technology community for practical learning, collaboration, and connection."
 	}] }),
 	component: lazyRouteComponent($$splitComponentImporter$3, "component")
 });
-var $$splitComponentImporter$2 = () => import("./privacy-1VJ14OSk.mjs");
+var $$splitComponentImporter$2 = () => import("./privacy-jntzo3UB.mjs");
 var Route$2 = createFileRoute("/privacy")({
 	head: () => ({ meta: [{ title: "Privacy | Codrithm" }, {
 		name: "description",
-		content: "Codrithm's privacy information will be published before personal data collection is enabled."
+		content: "Current privacy information for the Codrithm website."
 	}] }),
 	component: lazyRouteComponent($$splitComponentImporter$2, "component")
 });
-var $$splitComponentImporter$1 = () => import("./services-DrtM4Hbv.mjs");
+var $$splitComponentImporter$1 = () => import("./services-u4rguNEQ.mjs");
 var Route$1 = createFileRoute("/services")({
 	head: () => ({ meta: [{ title: "Services | Codrithm" }, {
 		name: "description",
-		content: "Explore Codrithm's practical services for automation, software development, AI/ML, and websites."
+		content: "Practical software, automation, AI, and website development services from Codrithm."
 	}] }),
 	component: lazyRouteComponent($$splitComponentImporter$1, "component")
 });
-var $$splitComponentImporter = () => import("./projects-DLEb0U_t.mjs");
+var $$splitComponentImporter = () => import("./projects-2xQwQEB8.mjs");
 var Route = createFileRoute("/projects/")({
 	head: () => ({ meta: [{ title: "Projects | Codrithm" }, {
 		name: "description",
-		content: "Verified Codrithm work will be shared here when project details are approved for publication."
+		content: "Approved Codrithm projects, clearly labeled by type and current status."
 	}] }),
 	component: lazyRouteComponent($$splitComponentImporter, "component")
 });
