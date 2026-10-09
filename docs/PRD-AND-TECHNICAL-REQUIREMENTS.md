@@ -1,95 +1,186 @@
-# Codrithm Website Concept — PRD & Technical Requirements
+# Codrithm — Website PRD & Technical Requirements
 
-## 1. Product summary
+**Version:** 2.0 | **Status:** Implementation specification (business content awaiting final verification) | **Updated:** 2026-10-10
 
-Codrithm is a student-driven technology community. This website is its public-facing home: it explains the community, builds trust, showcases its learning culture, and converts visitors into prospective members or partners.
+> **Source of truth:** This file defines WHAT to build and the technical constraints. `APP-FLOW.md` defines journeys, `DESIGN-BRIEF.md` defines HOW it should look and read, and `IMPLEMENTATION-PLAN.md` defines the build order. When an assumption conflicts with the codebase, inspect the actual code and document the discrepancy before altering architecture.
 
-This repository is an independent design concept. It must not replace or connect to the current live Codrithm website until the design is approved.
+## 1. Product summary and positioning
 
-## 2. Problem and opportunity
+Codrithm is one brand with two complementary offerings:
 
-Emerging developers often lack practical experience, supportive peers, and visible paths into meaningful work. Codrithm offers learning sessions, peer mentorship, collaboration, and opportunities. The website should make that value understandable within one visit and provide clear next actions.
+1. **Services (primary homepage intent):** Technical services for businesses, founders, organizations and teams: AI automation, custom software development, practical AI/ML solutions, and website/WordPress development.
+2. **Community (distinct experience):** A technology community supporting learning, events, collaboration and practical experience for students and emerging developers.
 
-## 3. Goals
+The site must make business services understandable immediately without erasing the authentic community history. Codrithm is expanding from a community into a services business; do not imply an established agency track record, company registration status, or commercial client results that have not been verified.
 
-- Communicate Codrithm’s purpose: learn, build, and connect.
-- Present a credible, energetic, student-led technology brand.
-- Guide prospective members to join or make contact.
-- Give potential collaborators a clear path to work with Codrithm.
-- Perform well on mobile, be accessible, and respect reduced-motion preferences.
+**Suggested positioning statement (editable):** “Software, automation, and a community that builds.”
 
-## 4. Primary audiences
+**Homepage headline (provisional):** “We build software that makes work easier.”
 
-| Audience | Need | Primary action |
-| --- | --- | --- |
-| Students and emerging developers | A welcoming way to grow practical skills | Join Codrithm |
-| Potential mentors and collaborators | Evidence of an active community and a partnership path | Work with us |
-| Community members | Updates, sessions, and project visibility | Explore projects/events |
+**Supporting copy:** “From business websites to custom applications and AI-assisted workflows, we help turn specific problems into working software.”
 
-## 5. Current concept scope
+**Brand rule:** Be specific and human. No empty marketing phrases or guaranteed outcomes.
 
-The implemented one-page site contains:
+## 2. Goals, metrics and non-goals
 
-- Navigation and responsive mobile menu
-- Hero with community positioning and CTA buttons
-- Values/community bento section and learning features
-- Community statistics and illustrative dashboard
-- Community paths: Learn, Build, Connect
-- Testimonials, article cards, FAQ, email CTA, and footer
+### Goals (ordered)
+- Convert qualified business visitors into legitimate project inquiries.
+- Prove real delivery capability through clearly labeled projects and technical case studies.
+- Communicate the four service groups in plain language and facilitate service discovery.
+- Preserve a credible, independently useful community section and membership route.
+- Provide fast, accessible, mobile-first pages with working links and trustworthy content.
 
-All content is currently static. CTA buttons, newsletter submission, blog cards, and footer social/contact links are presentation-only and require real destinations or integrations before launch.
+### Measurement (instrument only with approved privacy approach)
+- Project-inquiry submissions and submission success/error rate.
+- Service-card → service-page clicks; services → contact progression.
+- Project detail engagement and relevant CTA clicks.
+- Community → join link clicks; partner inquiries.
+- Technical performance, accessible UX, and site error rate.
 
-## 6. Functional requirements for launch
+Do not invent conversion targets or claim established historical baselines. Set targets after initial data collection.
 
-1. All CTA buttons must navigate to a defined member, partner, event, or contact workflow.
-2. The email form must validate email addresses, show success/error feedback, and send data to an approved provider or first-party endpoint.
-3. Navigation and footer links must lead to meaningful internal sections or real external destinations.
-4. Blog/project/event content must be manageable without editing source code (CMS or structured content files).
-5. Add a privacy notice and consent-aware analytics if data is collected.
-6. All public content must have a content owner and review cadence.
+### Out of scope for v1
+Member login/dashboard, online payments, checkout, booking engine, public price calculator, full custom CMS/admin dashboard, automated event registration system, chat bot widget, decorative 3D scenes, fabricated company KPIs, and production-domain migration without approval. Blog is deferred unless real maintained content exists.
 
-## 7. Non-functional requirements
+## 3. Audience and needs
 
-- Responsive from 320px wide through desktop.
-- Keyboard-operable interactive controls with visible focus states.
-- Semantic structure, meaningful alt text, and WCAG AA contrast for text and controls.
-- Honour `prefers-reduced-motion`; animation must not block reading or interaction.
-- Target Lighthouse performance: 90+ Performance, Accessibility, Best Practices, and SEO on the primary page.
-- Optimized local image assets, lazy loading below the fold, and no blocking third-party scripts unless justified.
-- Secure form handling: server-side validation, rate limiting, spam protection, and no secrets in browser code.
+| Audience | Question | Primary path |
+|---|---|---|
+| Small businesses and founders | Can you build/improve our website or automate our work? | Home → Services → Contact |
+| Teams requiring custom applications | Can you implement this feature, tool, integration or platform? | Services → Project evidence → Contact |
+| AI/ML buyers | Can you solve this specific AI/data use case responsibly? | AI/ML details → relevant evidence → inquiry |
+| Prospective community members | What activities and people will I find here? | Community → Events/activities → Join |
+| Partners/mentors | Is this community active and how can we collaborate? | Community/About → Partnership inquiry |
 
-## 8. Technical baseline
+## 4. Service taxonomy (launch)
 
-| Area | Current choice |
-| --- | --- |
-| Framework | TanStack Start with React 19 and TypeScript |
-| Build/runtime | Vite + Nitro, with Netlify preset by default |
-| Styling | Tailwind CSS v4 with CSS design tokens |
-| Motion | Framer Motion, central motion preferences and reusable primitives |
-| Routing | TanStack Router; current public route is `/` |
-| Server safeguards | CSRF middleware and SSR error fallback |
+Service descriptions are scope examples, not a promise that each capability is already commercially delivered. Confirm team capacity before publishing each claim.
 
-## 9. Recommended production additions
+| Slug | Public label | Explain with practical examples | Action |
+|---|---|---|---|
+| `ai-automation` | AI Automation | Repetitive-task automation, workflow orchestration, AI-assisted processing, tool/API integrations; n8n where appropriate | Discuss an automation |
+| `software-development` | Software Development | Internal tools, custom web apps, dashboards, backend APIs, integrations | Discuss software |
+| `ai-ml` | AI & Machine Learning | Practical AI features, data analysis/processing, selected ML models, document or text processing; require feasibility review | Discuss an AI/ML use case |
+| `websites-wordpress` | Websites & WordPress | Business websites, WordPress builds, landing pages, redesign, performance and maintenance | Discuss a website |
 
-- A content system: headless CMS or validated local MDX/JSON content.
-- A form provider or secure server function for signups and contact inquiries.
-- A transactional email/CRM handoff for new leads.
-- Analytics with explicit privacy and consent decisions.
-- Environment-variable configuration for external URLs and integration keys.
-- Automated accessibility, lint, typecheck, and production-build checks in CI.
+Do not present AI/ML or automation as a guaranteed substitute for human review. Do not promise universal model accuracy or specific ROI.
 
-## 10. Success measures
+## 5. Information architecture and routes
 
-- CTA click-through rate by audience intent.
-- Successful email/signup conversion rate.
-- Contact/partnership inquiry volume and quality.
-- Mobile engagement and page-load metrics.
-- Accessibility audit results and production error rate.
+Required routes:
 
-## 11. Out of scope for this concept
+| Route | Purpose |
+|---|---|
+| `/` | Services-led homepage with visible community link |
+| `/services` | Service overview and benefits/outputs |
+| `/projects` | Verified work index, labeled by project type and stage |
+| `/projects/$slug` | Only for real projects with sufficient approved detail |
+| `/community` | Community overview, activities, events, joining |
+| `/about` | Origin, team, approach, values, honest organization status |
+| `/contact` | Inquiry type selection + working contact workflow |
+| `/privacy` | Real privacy statement before collecting personal information |
+| not-found | Helpful 404 route and recovery link |
 
-- Member authentication and a live community dashboard
-- Payments or paid plans
-- Event registration platform
-- Full blog/CMS administration UI
-- Replacing the live Codrithm site before approval
+Prefer dedicated sections within `/services` for v1; add `/services/$slug` only if approved detailed content exists and duplicates are avoidable. Preserve existing router conventions rather than forcing literal filenames.
+
+**Primary navbar:** Home · Services · Projects · Community · About · Contact. Prominent action: **Start a Project** → `/contact?type=project`. On mobile use an accessible menu with reliable close/focus behavior.
+
+## 6. Homepage requirements and template mapping
+
+**Hard constraint: adapt existing site/template rather than redesigning it from zero.** Inspect actual implementation and make a reusable-component inventory before changing code.
+
+1. **Hero:** Preserve current composition, strong dark theme and restrained entrance motion. Replace community-only promise with precise services proposition; primary CTA Start a Project; secondary Explore Our Work; community mini-card or clearly visible route.
+2. **Four service cards:** Adapt existing bento/feature-card components; label, real examples, benefit explained concretely, action to service details/inquiry.
+3. **Selected work:** Reuse showcase/card patterns, display 2–3 verified projects (or fewer; never invent to fill). Each labeled `Internal project`, `Client project`, `Community project` or `Prototype` and status `In progress` as needed.
+4. **How we work:** Discovery → Scope → Build → Review/Handover. Describe deliverables and expectation-setting, not vague methodology.
+5. **Community teaser:** Preserve “Learn · Build · Connect” identity but point to full community page.
+6. **Partners / collaborators:** Retain existing logo row only for verified permissions; community partners ≠ commercial client logos.
+7. **FAQ:** Cover scope, WordPress, integrations, support, estimates, content ownership, communication, AI feasibility. No unapproved price/timeline promises.
+8. **Final CTA:** Repurpose newsletter CTA for start-project inquiry; keep a secondary Join Community action.
+9. **Footer:** Real destinations; no dead links or generic filler.
+
+Previous template sections like blog/news/testimonials must be moved, condensed, or disabled when no credible content exists; do not populate them with invented text.
+
+## 7. Page-specific functionality
+
+### Services
+- Four sections/cards that plainly describe common problems, typical deliverables, constraints, and example work if verified.
+- Every service links to `/contact?type=project&service=<slug>`; prefilled selections must be editable.
+- No “Get a quote” fixed-price implication unless price estimation process exists.
+
+### Projects
+- Structured project records: `slug`, `title`, `summary`, `classification`, `status`, `problem`, `approach`, `features`, `stack`, `roleOrTeamContribution`, `images`, `approvedExternalUrl`, `publishable`, `updatedAt`.
+- Only `publishable: true` records appear publicly; status must be truthful.
+- Show case study only with sufficient evidence. Project screenshots need alt text. Never generate fake product UIs and describe them as delivered client work.
+- Audit AI is a *candidate internal project*, published only with confirmed status/content.
+
+### Community
+- Distinct page with mission, actual activities, real event highlights, approved partner logos, and join CTA to verified destination.
+- Only show member counts, event counts, attendance, testimonials, or dates if approved and sourced. If verification is pending, hide the metric.
+- A dated past event must not display as upcoming.
+
+### About
+- Tell the true history: community roots and expansion into services; do not invent dates, company registration, team biographies, offices, headcounts, or client wins.
+- Team profiles only after consent; links must work.
+
+### Contact
+- Inquiry type: `Project`, `Partnership`, `General` (community join uses a verified external path; optional contact fallback).
+- Fields for Project: name, email, service, short description, optional organization, optional budget range, consent checkbox.
+- Fields for Partnership: name, email, organization, intent/message, consent.
+- Fields for General: name, email, message, consent.
+- Successful submission only after server/provider acknowledgement; errors retain draft fields and allow retry.
+- Do not accept sensitive materials/files in v1.
+- If a secure approved backend/provider is not configured, disable submit with an honest notice and provide a verified contact email. Do not simulate success.
+
+## 8. Technical baseline and engineering decisions
+
+Current documented baseline (verify in actual repo at start): **TanStack Start + React 19 + TypeScript; Vite/Nitro; TanStack Router; Tailwind CSS v4 with design tokens; Framer Motion; Netlify deployment preset**. Keep framework and design foundations unless a genuine blocking issue is demonstrated and approved.
+
+- Prefer server rendering/SEO-capable routes already supported by TanStack Start.
+- Reuse existing motion primitives and styles; avoid installing UI frameworks or animation libraries for aesthetic novelty.
+- Organize content as typed TypeScript objects or validated Markdown/JSON and reuse across route components.
+- Ensure route loaders/render paths handle missing/invalid slugs with real 404 status where supported.
+- Use existing environment conventions; provide `.env.example` with placeholder keys only. Never commit secrets.
+- Use approved Netlify-compatible server endpoint/function for contact requests; verify deployment runtime and adapter before implementing.
+- Validated payload schemas on both sides (server is authoritative). Enforce length limits, honeypot and server-side rate limits/spam controls as supported. Escape output, avoid user HTML injection, protect endpoints against abuse and CSRF as appropriate.
+- Log failures without logging sensitive contact message bodies or credentials.
+- Prevent duplicate submissions, and include clear network-timeout/retry states.
+- No client-side delivery tokens, and no fake analytics/events/forms.
+
+### Suggested content model
+
+```ts
+type ServiceSlug = 'ai-automation' | 'software-development' | 'ai-ml' | 'websites-wordpress';
+type ProjectKind = 'internal' | 'client' | 'community' | 'prototype';
+type ProjectStatus = 'planned' | 'in-progress' | 'completed';
+// Project content must include publishable/approved flags; no hidden private data in client bundles.
+```
+
+Build components in existing `src/` patterns; do not force a new folder layout if repo organization differs.
+
+## 9. Accessibility, responsiveness and performance
+
+- Responsive design at 320px, 375px, 768px, 1024px, 1440px and large screens; no horizontal overflow.
+- Semantic headings, landmark regions, alt text, labels, focus states, skip link, sufficient contrast (WCAG 2.2 AA target), touch targets and keyboard support.
+- `prefers-reduced-motion` must suppress nonessential animation; no animation-dependent content.
+- Images sized/compressed, below-fold lazy loading, optimized font loading, no autoplay background video.
+- Targets for representative production-like pages: Lighthouse >=90 in Performance, Accessibility, Best Practices, SEO where feasible; aim for Core Web Vitals LCP <=2.5s, INP <=200ms, CLS <=0.1 at p75 when field measurements become available. Targets are quality gates, not guaranteed outcomes.
+- SEO: unique page titles/descriptions, canonical URLs once approved, sitemap, robots policy, social metadata, meaningful page copy and relevant structured data only where accurate.
+- Privacy: transparent notice, collect minimum personal data, document provider/retention and consent decisions; avoid nonessential trackers before privacy review.
+
+## 10. Content governance and launch blockers
+
+**Required inputs:** approved services and actual delivery boundaries; approved contact address/destination; real company/team names and roles with consent; real project screenshots and classification; social links; community join destination; verified collaborators/logos; privacy/retention wording; approved canonical domain.
+
+**No fabrication policy:** If any input is unavailable, use non-public TODO markers in structured content, remove the section from production, or use an explicitly labeled honest interim state. Never publish fake results, testimonials, inflated numbers, awards, clients, addresses, claims, or invented imagery of past events.
+
+**Release gates:** All critical routes work, important CTAs resolve, project content accurate, contact submission verified end to end (or honest fallback), no obvious security issue, responsive + a11y checks pass, staging review approved, no unintended production changes.
+
+## 11. Definition of done
+
+- Both journeys (business and community) demonstrably complete end-to-end.
+- No generic AI-generated-sounding promises or filler copy.
+- Existing template identity recognizable, performance not regressed unnecessarily.
+- No mock success screens or placeholder links on launch routes.
+- Typecheck, lint, tests and production build pass using scripts present in the repo.
+- Final change report documents files, tested commands, pending real-content approvals and explicit deployment status.

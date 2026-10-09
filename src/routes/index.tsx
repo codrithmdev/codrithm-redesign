@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import featureShield from "@/assets/feature-shield.jpg";
 import featureCharts from "@/assets/feature-charts.jpg";
-import { Navbar } from "@/components/site/Navbar";
 import { Hero } from "@/components/site/Hero";
 import { LogoMarquee } from "@/components/site/LogoMarquee";
 import { BentoSection } from "@/components/site/BentoSection";
@@ -14,7 +13,6 @@ import { Testimonials } from "@/components/site/Testimonials";
 import { Blog } from "@/components/site/Blog";
 import { Faq } from "@/components/site/Faq";
 import { CtaSection } from "@/components/site/CtaSection";
-import { Footer } from "@/components/site/Footer";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -46,12 +44,11 @@ const bullets = [
 
 function Index() {
   return (
-    <motion.main
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
     >
-      <Navbar />
       <Hero />
       <LogoMarquee />
       <BentoSection />
@@ -90,7 +87,6 @@ function Index() {
       <Blog />
       <Faq />
       <CtaSection />
-      <Footer />
-    </motion.main>
+    </motion.div>
   );
 }

@@ -9,6 +9,8 @@ import {
 import { type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
+import { Footer } from "@/components/site/Footer";
+import { Navbar } from "@/components/site/Navbar";
 
 function NotFoundComponent() {
   return (
@@ -72,10 +74,11 @@ export const Route = createRootRouteWithContext<Record<string, never>>()({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Codrithm — Where Coders Make History" },
+      { title: "Codrithm — Software, automation, and a community that builds" },
       {
         name: "description",
-        content: "A student-driven technology community helping emerging developers learn, build, and grow together.",
+        content:
+          "Codrithm builds practical software, automation, and websites while supporting a technology community that learns and builds together.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -114,6 +117,12 @@ function RootShell({ children }: { children: ReactNode }) {
         <HeadContent />
       </head>
       <body>
+        <a
+          href="#main-content"
+          className="fixed top-4 left-4 z-[100] -translate-y-20 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-[var(--shadow-glow)] transition-transform focus:translate-y-0"
+        >
+          Skip to content
+        </a>
         {children}
         <Scripts />
       </body>
@@ -122,5 +131,13 @@ function RootShell({ children }: { children: ReactNode }) {
 }
 
 function RootComponent() {
-  return <Outlet />;
+  return (
+    <>
+      <Navbar />
+      <main id="main-content" tabIndex={-1}>
+        <Outlet />
+      </main>
+      <Footer />
+    </>
+  );
 }

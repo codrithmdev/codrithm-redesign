@@ -1,11 +1,12 @@
+import { Link } from "@tanstack/react-router";
 import { Logo } from "./Logo";
 import { Reveal } from "@/animations/reveal";
 import { Stagger, StaggerItem } from "@/animations/stagger";
+import { internalDestinations, navigationItems } from "@/content/site";
 
 const columns = [
-  { title: "Explore", links: ["Home", "About", "Services", "Projects", "Community", "Contact"] },
-  { title: "Socials", links: ["LinkedIn", "Instagram", "Facebook", "YouTube"] },
-  { title: "Connect", links: ["WhatsApp", "Calendly", "Email", "Join Codrithm"] },
+  { title: "Explore", links: navigationItems },
+  { title: "Legal", links: [{ label: "Privacy", to: internalDestinations.privacy }] },
 ];
 
 export function Footer() {
@@ -24,22 +25,22 @@ export function Footer() {
             </p>
           </Reveal>
 
-          <Stagger className="grid gap-10 sm:grid-cols-3" stagger={0.08}>
+          <Stagger className="grid gap-10 sm:grid-cols-2" stagger={0.08}>
             {columns.map((col) => (
               <StaggerItem key={col.title} small>
                 <p className="text-xs tracking-widest text-muted-foreground uppercase">
                   {col.title}
                 </p>
                 <ul className="mt-5 space-y-3">
-                  {col.links.map((l) => (
-                    <li key={l}>
-                      <a
-                        href="#home"
+                  {col.links.map((link) => (
+                    <li key={link.label}>
+                      <Link
+                        to={link.to}
                         className="group relative inline-block text-sm text-muted-foreground transition-colors duration-300 hover:text-foreground"
                       >
-                        {l}
-                        <span className="absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-[image:var(--gradient-solar)] transition-transform duration-300 ease-[var(--ease-standard)] group-hover:scale-x-100" />
-                      </a>
+                        {link.label}
+                        <span className="absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-primary transition-transform duration-300 ease-[var(--ease-standard)] group-hover:scale-x-100" />
+                      </Link>
                     </li>
                   ))}
                 </ul>

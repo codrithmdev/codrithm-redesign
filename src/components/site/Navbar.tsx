@@ -1,27 +1,38 @@
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
-import { useState } from "react";
+import { Link, useRouterState } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Logo } from "./Logo";
-import { AnimatedButton } from "./AnimatedButton";
 import { mobileMenuItem } from "@/animations/variants";
 import { tNormal } from "@/animations/transitions";
 import { STAGGER_NORMAL } from "@/animations/tokens";
-
-const links = [
-  { label: "Home", href: "#home" },
-  { label: "Services", href: "#features" },
-  { label: "About", href: "#about" },
-  { label: "Community", href: "#pricing" },
-  { label: "Projects", href: "#blog" },
-  { label: "Contact", href: "#contact" },
-];
+import { internalDestinations, navigationItems } from "@/content/site";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, "change", (v) => setScrolled(v > 24));
+
+  const closeMenu = (restoreFocus = false) => {
+    setOpen(false);
+    if (restoreFocus) requestAnimationFrame(() => menuButtonRef.current?.focus());
+  };
+
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") closeMenu(true);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
+  const isCurrentRoute = (to: (typeof navigationItems)[number]["to"]) =>
+    to === internalDestinations.home ? pathname === to : pathname.startsWith(to);
 
   return (
     <motion.header
@@ -39,31 +50,47 @@ export function Navbar() {
         )}
       >
         <nav className="mx-auto flex w-full max-w-7xl items-center justify-between px-5 lg:px-8">
-          <a href="#home" className="shrink-0">
+          <Link to={internalDestinations.home} className="shrink-0" aria-label="Codrithm home">
             <Logo />
-          </a>
+          </Link>
 
           <ul className="hidden items-center gap-1 lg:flex">
-            {links.map((l) => (
-              <li key={l.label}>
-                <a
-                  href={l.href}
-                  className="group relative inline-block px-3 py-2 text-sm text-muted-foreground transition-colors duration-300 hover:text-foreground"
+            {navigationItems.map((item) => (
+              <li key={item.label}>
+                <Link
+                  to={item.to}
+                  aria-current={isCurrentRoute(item.to) ? "page" : undefined}
+                  className={cn(
+                    "group relative inline-block px-3 py-2 text-sm transition-colors duration-300 hover:text-foreground",
+                    isCurrentRoute(item.to) ? "text-foreground" : "text-muted-foreground",
+                  )}
                 >
-                  {l.label}
-                  <span className="absolute bottom-1 left-3 h-px w-[calc(100%-1.5rem)] origin-left scale-x-0 bg-[image:var(--gradient-solar)] transition-transform duration-300 ease-[var(--ease-standard)] group-hover:scale-x-100" />
-                </a>
+                  {item.label}
+                  <span
+                    className={cn(
+                      "absolute bottom-1 left-3 h-px w-[calc(100%-1.5rem)] origin-left bg-primary transition-transform duration-300 ease-[var(--ease-standard)] group-hover:scale-x-100",
+                      isCurrentRoute(item.to) ? "scale-x-100" : "scale-x-0",
+                    )}
+                  />
+                </Link>
               </li>
             ))}
           </ul>
 
           <div className="flex items-center gap-3">
-            <AnimatedButton size="md" className="hidden sm:inline-flex">
-              Work with us
-            </AnimatedButton>
+            <Link
+              to={internalDestinations.contact}
+              search={{ type: "project" }}
+              className="hidden rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-[var(--shadow-glow)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary/90 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:inline-flex"
+            >
+              Start a Project
+            </Link>
 
             <button
+              ref={menuButtonRef}
               aria-label={open ? "Close menu" : "Open menu"}
+              aria-expanded={open}
+              aria-controls="mobile-navigation"
               onClick={() => setOpen((v) => !v)}
               className="relative flex size-10 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-[var(--shadow-glow)] transition-colors hover:bg-primary/90 lg:hidden"
             >
@@ -93,27 +120,37 @@ export function Navbar() {
             className="overflow-hidden border-b border-border bg-background/95 backdrop-blur-xl lg:hidden"
           >
             <motion.ul
+              id="mobile-navigation"
               className="mx-auto flex max-w-7xl flex-col gap-1 px-5 py-6"
               initial="hidden"
               animate="visible"
               exit="exit"
               variants={{ visible: { transition: { staggerChildren: STAGGER_NORMAL } } }}
             >
-              {links.map((l) => (
-                <motion.li key={l.label} variants={mobileMenuItem}>
-                  <a
-                    href={l.href}
-                    onClick={() => setOpen(false)}
-                    className="block py-2.5 text-lg text-muted-foreground transition-colors hover:text-foreground"
+              {navigationItems.map((item) => (
+                <motion.li key={item.label} variants={mobileMenuItem}>
+                  <Link
+                    to={item.to}
+                    aria-current={isCurrentRoute(item.to) ? "page" : undefined}
+                    onClick={() => closeMenu()}
+                    className={cn(
+                      "block py-2.5 text-lg transition-colors hover:text-foreground",
+                      isCurrentRoute(item.to) ? "text-foreground" : "text-muted-foreground",
+                    )}
                   >
-                    {l.label}
-                  </a>
+                    {item.label}
+                  </Link>
                 </motion.li>
               ))}
               <motion.li variants={mobileMenuItem} className="pt-3">
-                <AnimatedButton size="lg" className="w-full">
-                  Work with us
-                </AnimatedButton>
+                <Link
+                  to={internalDestinations.contact}
+                  search={{ type: "project" }}
+                  onClick={() => closeMenu()}
+                  className="inline-flex w-full items-center justify-center rounded-full bg-primary px-7 py-3.5 text-base font-medium text-primary-foreground shadow-[var(--shadow-glow)] transition-colors hover:bg-primary/90"
+                >
+                  Start a Project
+                </Link>
               </motion.li>
             </motion.ul>
           </motion.div>
