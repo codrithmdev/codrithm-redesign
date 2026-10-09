@@ -21,8 +21,7 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Codrithm — Software that makes work easier" },
       {
         property: "og:description",
-        content:
-          "Business websites, custom applications, and AI-powered workflows from Codrithm.",
+        content: "Business websites, custom applications, and AI-powered workflows from Codrithm.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

@@ -44,7 +44,11 @@ type ItemProps = {
 
 export function StaggerItem({ children, className, small, ...rest }: ItemProps) {
   return (
-    <motion.div className={cn(className)} variants={small ? staggerChildSmall : staggerChild} {...rest}>
+    <motion.div
+      className={cn(className)}
+      variants={small ? staggerChildSmall : staggerChild}
+      {...rest}
+    >
       {children}
     </motion.div>
   );

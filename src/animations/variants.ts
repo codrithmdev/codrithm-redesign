@@ -5,12 +5,7 @@ const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 import { DISTANCE_LARGE, DISTANCE_MEDIUM, STAGGER_NORMAL, STAGGER_SMALL } from "./tokens";
 
 export type RevealVariant =
-  | "fadeUp"
-  | "fade"
-  | "fadeLeft"
-  | "fadeRight"
-  | "scaleReveal"
-  | "imageReveal";
+  "fadeUp" | "fade" | "fadeLeft" | "fadeRight" | "scaleReveal" | "imageReveal";
 
 /** Distances shrink on small screens so nothing overflows horizontally. */
 export const makeVariants = (name: RevealVariant, compact = false): Variants => {

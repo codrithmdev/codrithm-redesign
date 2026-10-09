@@ -77,7 +77,9 @@ export function Hero() {
           className="font-display mx-auto mt-8 max-w-4xl text-[2.6rem] leading-[1.05] font-medium sm:text-6xl lg:text-7xl"
           initial={false}
           animate="visible"
-          variants={{ visible: { transition: { staggerChildren: 0.08, delayChildren: T.heading } } }}
+          variants={{
+            visible: { transition: { staggerChildren: 0.08, delayChildren: T.heading } },
+          }}
         >
           {lines.map((line) => (
             <span key={line} className="block overflow-hidden pb-1">
@@ -112,7 +114,10 @@ export function Hero() {
             <ArrowRight className="size-4" aria-hidden />
           </Link>
         </motion.div>
-        <motion.p {...rise(T.buttons + 0.08)} className="mx-auto mt-6 max-w-xl text-sm text-muted-foreground">
+        <motion.p
+          {...rise(T.buttons + 0.08)}
+          className="mx-auto mt-6 max-w-xl text-sm text-muted-foreground"
+        >
           Beyond client work, we&apos;re building a community where students and developers learn,
           connect, and work on practical ideas.
         </motion.p>

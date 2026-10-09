@@ -11,8 +11,7 @@ const buttonStyles = cva(
   {
     variants: {
       variant: {
-        solar:
-          "bg-primary text-primary-foreground shadow-[var(--shadow-glow)] hover:bg-primary/90",
+        solar: "bg-primary text-primary-foreground shadow-[var(--shadow-glow)] hover:bg-primary/90",
         outline:
           "bg-primary text-primary-foreground shadow-[var(--shadow-glow)] hover:bg-primary/90",
         ghost: "bg-primary text-primary-foreground shadow-[var(--shadow-glow)] hover:bg-primary/90",

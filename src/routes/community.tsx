@@ -56,21 +56,9 @@ function CommunityPage() {
           </article>
         ))}
       </section>
-      <CommunityList
-        title="Events and workshops"
-        items={events}
-        empty="Approved event and workshop details will be shared here when they are ready."
-      />
-      <CommunityList
-        title="Community activities"
-        items={activities}
-        empty="Activity information will be added as it is verified for public sharing."
-      />
-      <CommunityList
-        title="Partnerships and collaborations"
-        items={collaborations}
-        empty="Collaboration information is shown only with approval from the organizations involved."
-      />
+      <CommunityList title="Events and workshops" items={events} />
+      <CommunityList title="Community activities" items={activities} />
+      <CommunityList title="Partnerships and collaborations" items={collaborations} />
       <section className="surface-card mt-14 rounded-2xl p-6 sm:p-8">
         <h2 className="font-display text-2xl">Join the community</h2>
         <p className="mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">
@@ -101,32 +89,27 @@ function CommunityPage() {
 function CommunityList({
   title,
   items,
-  empty,
 }: {
   title: string;
   items: readonly { title?: string; name?: string; description?: string }[];
-  empty: string;
 }) {
+  if (items.length === 0) return null;
   const id = title.replaceAll(" ", "-").toLowerCase();
   return (
     <section className="mt-14" aria-labelledby={id}>
       <h2 id={id} className="font-display text-2xl">
         {title}
       </h2>
-      {items.length ? (
-        <div className="mt-6 grid gap-4 md:grid-cols-2">
-          {items.map((item) => (
-            <article key={item.title ?? item.name} className="surface-card rounded-2xl p-6">
-              <h3 className="font-display text-xl">{item.title ?? item.name}</h3>
-              {item.description && (
-                <p className="mt-3 text-sm leading-6 text-muted-foreground">{item.description}</p>
-              )}
-            </article>
-          ))}
-        </div>
-      ) : (
-        <p className="mt-4 text-sm leading-6 text-muted-foreground">{empty}</p>
-      )}
+      <div className="mt-6 grid gap-4 md:grid-cols-2">
+        {items.map((item) => (
+          <article key={item.title ?? item.name} className="surface-card rounded-2xl p-6">
+            <h3 className="font-display text-xl">{item.title ?? item.name}</h3>
+            {item.description && (
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">{item.description}</p>
+            )}
+          </article>
+        ))}
+      </div>
     </section>
   );
 }

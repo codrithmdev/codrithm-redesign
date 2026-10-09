@@ -45,8 +45,7 @@ function AboutPage() {
         <h2 className="font-display text-2xl">Our working approach</h2>
         <p className="mt-4 max-w-3xl text-sm leading-6 text-muted-foreground">
           We start by understanding the current situation, agree on what is useful to build, share
-          work in stages, and review it against the agreed requirements. Team profiles and history
-          will be added only when the information is approved for publication.
+          work in stages, and review it against the agreed requirements.
         </p>
         <div className="mt-7 flex flex-wrap gap-5">
           <Link

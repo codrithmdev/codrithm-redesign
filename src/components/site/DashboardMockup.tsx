@@ -50,7 +50,9 @@ export function DashboardMockup() {
           ].map(({ icon: Icon, label }, i) => (
             <span
               key={label}
-              className={i === 2 ? "flex items-center gap-1.5 text-foreground" : "flex items-center gap-1.5"}
+              className={
+                i === 2 ? "flex items-center gap-1.5 text-foreground" : "flex items-center gap-1.5"
+              }
             >
               <Icon className="size-3.5" />
               {label}
@@ -82,7 +84,9 @@ export function DashboardMockup() {
               className="rounded-xl border border-border bg-elevated/50 p-3"
             >
               <div className="flex items-center justify-between gap-2">
-                <span className="text-[10px] tracking-widest text-muted-foreground uppercase">Step {index + 1}</span>
+                <span className="text-[10px] tracking-widest text-muted-foreground uppercase">
+                  Step {index + 1}
+                </span>
                 <span className="text-[10px] text-success">In progress</span>
               </div>
               <div className="mt-2 flex items-end justify-between gap-2">
@@ -110,7 +114,10 @@ export function DashboardMockup() {
         </div>
 
         <div className="mt-4 grid gap-4 lg:grid-cols-2">
-          <motion.div variants={item} className="rounded-xl border border-border bg-elevated/40 p-4">
+          <motion.div
+            variants={item}
+            className="rounded-xl border border-border bg-elevated/40 p-4"
+          >
             <p className="text-sm">A clear path from idea to handover</p>
             <p className="mt-1 text-xs text-muted-foreground">
               A decorative workflow illustration, not a live product dashboard.
@@ -143,7 +150,10 @@ export function DashboardMockup() {
             </div>
           </motion.div>
 
-          <motion.div variants={item} className="rounded-xl border border-border bg-elevated/40 p-4">
+          <motion.div
+            variants={item}
+            className="rounded-xl border border-border bg-elevated/40 p-4"
+          >
             <p className="text-sm">Workflow signals</p>
             <div className="mt-6 flex h-36 items-end gap-1.5">
               {bars.map((h, i) => (

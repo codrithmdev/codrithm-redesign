@@ -17,7 +17,6 @@ type FormValues = {
   service: string;
   message: string;
   budget: string;
-  consent: boolean;
 };
 
 export const Route = createFileRoute("/contact")({
@@ -44,7 +43,6 @@ function ContactPage() {
     service: search.service ?? "",
     message: "",
     budget: "",
-    consent: false,
   });
   const [errors, setErrors] = useState<Partial<Record<keyof FormValues, string>>>({});
   const [notice, setNotice] = useState("");
@@ -65,7 +63,6 @@ function ContactPage() {
     if (!values.name.trim()) next.name = "Enter your name.";
     if (!/^\S+@\S+\.\S+$/.test(values.email)) next.email = "Enter a valid email address.";
     if (!values.message.trim()) next.message = "Add a short description of your inquiry.";
-    if (!values.consent) next.consent = "Confirm that Codrithm may use these details to respond.";
     setErrors(next);
     setNotice(
       Object.keys(next).length
@@ -181,19 +178,6 @@ function ContactPage() {
             </span>
           )}
         </label>
-        <label className="mt-5 flex gap-3 text-sm text-muted-foreground">
-          <input
-            type="checkbox"
-            checked={values.consent}
-            onChange={(event) => update("consent", event.target.checked)}
-            aria-invalid={Boolean(errors.consent)}
-          />
-          <span>
-            I understand this inquiry is not being sent yet and I consent to Codrithm using these
-            details to respond when a secure contact provider is configured.
-          </span>
-        </label>
-        {errors.consent && <p className="mt-2 text-sm text-red-300">{errors.consent}</p>}
         <button
           type="submit"
           className="mt-7 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-[var(--shadow-glow)] hover:bg-primary/90"

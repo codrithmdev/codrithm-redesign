@@ -38,7 +38,10 @@ export function Faq() {
 
   return (
     <section className="mx-auto w-full max-w-3xl px-5 py-24 lg:px-8 lg:py-32">
-      <SectionHeading title="Questions, answered" subtitle="Practical details before you start a project." />
+      <SectionHeading
+        title="Questions, answered"
+        subtitle="Practical details before you start a project."
+      />
 
       <Stagger className="mt-14 space-y-3" stagger={0.06}>
         {items.map((item, i) => {

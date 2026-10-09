@@ -9,9 +9,21 @@ import { tHover } from "@/animations/transitions";
 import { useMotionPrefs } from "@/animations/useMotionPrefs";
 
 const posts = [
-  { title: "Learning in public", image: blog1, excerpt: "Why sharing the process helps emerging developers grow faster." },
-  { title: "Better projects", image: blog2, excerpt: "How collaboration turns early ideas into work with real impact." },
-  { title: "The community advantage", image: blog3, excerpt: "A practical guide to learning with people who want you to succeed." },
+  {
+    title: "Learning in public",
+    image: blog1,
+    excerpt: "Why sharing the process helps emerging developers grow faster.",
+  },
+  {
+    title: "Better projects",
+    image: blog2,
+    excerpt: "How collaboration turns early ideas into work with real impact.",
+  },
+  {
+    title: "The community advantage",
+    image: blog3,
+    excerpt: "A practical guide to learning with people who want you to succeed.",
+  },
 ];
 
 export function Blog() {

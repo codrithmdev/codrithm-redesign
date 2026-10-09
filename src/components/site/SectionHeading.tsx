@@ -35,10 +35,7 @@ export function SectionHeading({
         ))}
         {highlight && (
           <span className="inline-block overflow-hidden pb-1 align-bottom">
-            <motion.span
-              className="text-gradient inline-block opacity-70"
-              variants={headingWord}
-            >
+            <motion.span className="text-gradient inline-block opacity-70" variants={headingWord}>
               {highlight}
             </motion.span>
           </span>
