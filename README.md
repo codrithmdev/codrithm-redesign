@@ -20,3 +20,10 @@ npm run dev
 - TypeScript
 - React
 - Tailwind CSS
+
+## Project documentation
+
+- [PRD and technical requirements](docs/PRD-AND-TECHNICAL-REQUIREMENTS.md)
+- [App flow](docs/APP-FLOW.md)
+- [Design brief](docs/DESIGN-BRIEF.md)
+- [Implementation plan](docs/IMPLEMENTATION-PLAN.md)
