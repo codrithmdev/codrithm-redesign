@@ -141,12 +141,6 @@ var millisecondsToSeconds = /* @__NO_SIDE_EFFECTS__ */ (milliseconds) => millise
 //#region node_modules/motion-utils/dist/es/velocity-per-second.mjs
 var velocityPerSecond = /* @__NO_SIDE_EFFECTS__ */ (velocity, frameDuration) => frameDuration ? velocity * (1e3 / frameDuration) : 0;
 //#endregion
-//#region node_modules/motion-utils/dist/es/wrap.mjs
-var wrap = (min, max, v) => {
-	const rangeSize = max - min;
-	return ((v - min) % rangeSize + rangeSize) % rangeSize + min;
-};
-//#endregion
 //#region node_modules/motion-utils/dist/es/easing/cubic-bezier.mjs
 var calcBezier = (t, a1, a2) => (((1 - 3 * a2 + 3 * a1) * t + (3 * a2 - 6 * a1)) * t + 3 * a1) * t;
 var subdivisionPrecision = 1e-7;
@@ -198,12 +192,6 @@ var easeInOut = /*@__PURE__*/ cubicBezier(.42, 0, .58, 1);
 var isEasingArray = /* @__NO_SIDE_EFFECTS__ */ (ease) => {
 	return Array.isArray(ease) && typeof ease[0] !== "number";
 };
-//#endregion
-//#region node_modules/motion-utils/dist/es/easing/utils/get-easing-for-segment.mjs
-/*#__NO_SIDE_EFFECTS__*/
-function getEasingForSegment(easing, i) {
-	return /* @__PURE__ */ isEasingArray(easing) ? easing[wrap(0, easing.length, i)] : easing;
-}
 //#endregion
 //#region node_modules/motion-utils/dist/es/easing/utils/is-bezier-definition.mjs
 var isBezierDefinition = /* @__NO_SIDE_EFFECTS__ */ (easing) => Array.isArray(easing) && typeof easing[0] === "number";
@@ -1884,40 +1872,6 @@ var int = {
 	transform: Math.round
 };
 //#endregion
-//#region node_modules/motion-dom/dist/es/value/types/maps/transform.mjs
-var transformValueTypes = {
-	rotate: degrees,
-	/**
-	* Internal channel for `transition.path` orientToPath. Composed onto
-	* `rotate` at the transform-build sites so the user's `rotate` is
-	* never read or overwritten. Not part of `transformPropOrder`.
-	*/
-	pathRotation: degrees,
-	rotateX: degrees,
-	rotateY: degrees,
-	rotateZ: degrees,
-	scale,
-	scaleX: scale,
-	scaleY: scale,
-	scaleZ: scale,
-	skew: degrees,
-	skewX: degrees,
-	skewY: degrees,
-	distance: px,
-	translateX: px,
-	translateY: px,
-	translateZ: px,
-	x: px,
-	y: px,
-	z: px,
-	perspective: px,
-	transformPerspective: px,
-	opacity: alpha,
-	originX: progressPercentage,
-	originY: progressPercentage,
-	originZ: px
-};
-//#endregion
 //#region node_modules/motion-dom/dist/es/value/types/maps/number.mjs
 var numberValueTypes = {
 	borderWidth: px,
@@ -1970,7 +1924,36 @@ var numberValueTypes = {
 	fontSize: px,
 	backgroundPositionX: px,
 	backgroundPositionY: px,
-	...transformValueTypes,
+	rotate: degrees,
+	/**
+	* Internal channel for `transition.path` orientToPath. Composed onto
+	* `rotate` at the transform-build sites so the user's `rotate` is
+	* never read or overwritten. Not part of `transformPropOrder`.
+	*/
+	pathRotation: degrees,
+	rotateX: degrees,
+	rotateY: degrees,
+	rotateZ: degrees,
+	scale,
+	scaleX: scale,
+	scaleY: scale,
+	scaleZ: scale,
+	skew: degrees,
+	skewX: degrees,
+	skewY: degrees,
+	distance: px,
+	translateX: px,
+	translateY: px,
+	translateZ: px,
+	x: px,
+	y: px,
+	z: px,
+	perspective: px,
+	transformPerspective: px,
+	opacity: alpha,
+	originX: progressPercentage,
+	originY: progressPercentage,
+	originZ: px,
 	zIndex: int,
 	fillOpacity: alpha,
 	strokeOpacity: alpha,
@@ -2951,89 +2934,6 @@ var AsyncMotionValueAnimation = class extends WithPromise {
 	}
 };
 //#endregion
-//#region node_modules/motion-dom/dist/es/animation/GroupAnimation.mjs
-var GroupAnimation = class {
-	constructor(animations) {
-		this.stop = () => this.runAll("stop");
-		this.animations = animations.filter(Boolean);
-	}
-	get finished() {
-		return Promise.all(this.animations.map((animation) => animation.finished));
-	}
-	/**
-	* TODO: Filter out cancelled or stopped animations before returning
-	*/
-	getAll(propName) {
-		return this.animations[0][propName];
-	}
-	setAll(propName, newValue) {
-		for (let i = 0; i < this.animations.length; i++) this.animations[i][propName] = newValue;
-	}
-	attachTimeline(timeline) {
-		const subscriptions = this.animations.map((animation) => animation.attachTimeline(timeline));
-		return () => {
-			subscriptions.forEach((cancel, i) => {
-				cancel && cancel();
-				this.animations[i].stop();
-			});
-		};
-	}
-	get time() {
-		return this.getAll("time");
-	}
-	set time(time) {
-		this.setAll("time", time);
-	}
-	get speed() {
-		return this.getAll("speed");
-	}
-	set speed(speed) {
-		this.setAll("speed", speed);
-	}
-	get state() {
-		return this.getAll("state");
-	}
-	get startTime() {
-		return this.getAll("startTime");
-	}
-	get duration() {
-		return getMax(this.animations, "duration");
-	}
-	get iterationDuration() {
-		return getMax(this.animations, "iterationDuration");
-	}
-	runAll(methodName) {
-		this.animations.forEach((controls) => controls[methodName]());
-	}
-	play() {
-		this.runAll("play");
-	}
-	pause() {
-		this.runAll("pause");
-	}
-	cancel() {
-		this.runAll("cancel");
-	}
-	complete() {
-		this.runAll("complete");
-	}
-};
-function getMax(animations, propName) {
-	let max = 0;
-	for (let i = 0; i < animations.length; i++) {
-		const value = animations[i][propName];
-		if (value !== null && value > max) max = value;
-	}
-	return max;
-}
-//#endregion
-//#region node_modules/motion-dom/dist/es/animation/GroupAnimationWithThen.mjs
-var GroupAnimationWithThen = class extends GroupAnimation {
-	then(onResolve, _onReject) {
-		return this.finished.finally(onResolve).then(() => {});
-	}
-};
-//#endregion
 //#region node_modules/motion-dom/dist/es/animation/utils/calc-child-stagger.mjs
 function calcChildStagger(children, child, delayChildren, staggerChildren = 0, staggerDirection = 1) {
 	const index = Array.from(children).sort((a, b) => a.sortNodePosition(b)).indexOf(child);
@@ -3369,7 +3269,7 @@ function resolveTransition(transition, parentTransition) {
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/animation/utils/get-value-transition.mjs
-function getValueTransition$1(transition, key) {
+function getValueTransition(transition, key) {
 	const valueTransition = transition?.[key] ?? transition?.["default"] ?? transition;
 	if (valueTransition !== transition) return resolveTransition(valueTransition, transition);
 	return valueTransition;
@@ -3437,7 +3337,7 @@ function isTransitionDefined(transition) {
 //#endregion
 //#region node_modules/motion-dom/dist/es/animation/interfaces/motion-value.mjs
 var animateMotionValue = (name, value, target, transition = {}, element, isHandoff) => (onComplete) => {
-	const valueTransition = getValueTransition$1(transition, name) || {};
+	const valueTransition = getValueTransition(transition, name) || {};
 	/**
 	* Most transition values are currently completely overwritten by value-specific
 	* transitions. In the future it'd be nicer to blend these transitions. But for now
@@ -3687,7 +3587,7 @@ function animateTarget(visualElement, targetAndTransition, { delay = 0, transiti
 		if (valueTarget === void 0 || animationTypeState && shouldBlockAnimation(animationTypeState, key)) continue;
 		const valueTransition = {
 			delay,
-			...getValueTransition$1(transition || {}, key)
+			...getValueTransition(transition || {}, key)
 		};
 		if (skipAnimations) valueTransition.skipAnimations = true;
 		/**
@@ -3968,89 +3868,6 @@ var cornerRadiusProps = [
 	"borderBottomLeftRadius"
 ];
 //#endregion
-//#region node_modules/motion-dom/dist/es/animation/animate/effects.mjs
-/**
-* Effects registered via `animate.addEffect()`, most recent first.
-*/
-var effects = [];
-function addEffect(effect) {
-	typeof effect.test === "function" && effect.read;
-	removeEffect(effect);
-	effects.unshift(effect);
-}
-function removeEffect(effect) {
-	removeItem(effects, effect);
-}
-function findEffect(subject) {
-	return effects.find((effect) => effect.test(subject));
-}
-/**
-* Animate each key in `keyframes` on the motion value `getValue` returns
-* for it. `element` is what the keyframe resolver uses to read, render
-* and measure the subject when the effect defers resolution to it.
-*/
-function animateValues(getValue, keyframes, transition = {}, element) {
-	const animations = [];
-	const { velocity } = transition;
-	const reduceMotion = transition.reduceMotion ?? element?.shouldReduceMotion;
-	for (const key in keyframes) {
-		if (key === "transition" || key === "transitionEnd") continue;
-		const target = keyframes[key];
-		if (target === void 0) continue;
-		const value = getValue(key);
-		/**
-		* If the value is already at the defined target, skip the animation.
-		* We still re-assert the value via frame.update to take precedence
-		* over any stale transitionEnd callbacks from previous animations.
-		*/
-		const current = value.get();
-		if (current !== void 0 && !value.isAnimating() && !Array.isArray(target) && target === current && !velocity) {
-			frame.update(() => value.set(target));
-			continue;
-		}
-		value.start(animateMotionValue(key, value, target, reduceMotion && positionalKeys.has(key) ? { type: false } : transition, element));
-		value.animation && animations.push(value.animation);
-	}
-	const { transitionEnd } = keyframes;
-	if (transitionEnd) {
-		const applyTransitionEnd = () => frame.update(() => {
-			for (const key in transitionEnd) getValue(key).set(transitionEnd[key]);
-		});
-		animations.length ? Promise.all(animations).then(applyTransitionEnd) : applyTransitionEnd();
-	}
-	return animations;
-}
-/**
-* Animate the keys of `subject` via `effect`. Motion values are created on
-* first animation and bound to the subject through the effect for the
-* rest of its life.
-*
-* Without `element`, a new value is seeded synchronously from the first
-* keyframe or `effect.read()`. With it, the value starts undefined and the
-* keyframe resolver reads the subject (batched, with unit conversion by
-* measurement) via `element`.
-*/
-function animateEffectSubject(effect, subject, keyframes, transition, element) {
-	return animateValues((key) => {
-		let value = effect.get(subject, key);
-		if (!value) {
-			let initial;
-			if (!element) {
-				const target = keyframes[key];
-				initial = firstKeyframe(target) ?? effect.read(subject, key, target);
-				`${key}`;
-			}
-			value = motionValue(initial, { owner: element });
-			effect(subject, { [key]: value });
-		}
-		return value;
-	}, keyframes, transition, element);
-}
-function firstKeyframe(target) {
-	const first = Array.isArray(target) ? target[0] : void 0;
-	return first === null ? void 0 : first;
-}
-//#endregion
 //#region node_modules/motion-dom/dist/es/utils/is-html-element.mjs
 /**
 * Checks if an element is an HTML element in a way
@@ -4089,223 +3906,6 @@ function resolveElements(elementOrSelector, scope, selectorCache) {
 	}
 	return Array.from(elementOrSelector).filter((element) => element != null);
 }
-//#endregion
-//#region node_modules/motion-dom/dist/es/effects/MotionValueState.mjs
-var MotionValueState = class {
-	/**
-	* @param step - The frameloop step renders are scheduled in. Defaults
-	* to `frame.render`. Effects that feed a render loop running in
-	* `frame.render` (GPU scenes) should write in `frame.preRender`.
-	*/
-	constructor(step = frame.render) {
-		this.step = step;
-		this.values = /* @__PURE__ */ new Map();
-		/**
-		* Renders scheduled for the next flush, usually one or two (values
-		* bound to the same computed render, e.g. `x` and `y` to `transform`,
-		* share an entry). Tracked with a count rather than truncating the
-		* array so no backing store is reallocated every frame. Kept per
-		* state so pending writes can be flushed synchronously before the
-		* subject is measured.
-		*/
-		this.pending = [];
-		this.numPending = 0;
-		/**
-		* Run the pending renders. Resetting the count first means a render
-		* scheduled while flushing lands in the next frame, as with the
-		* frameloop itself.
-		*/
-		this.flush = () => {
-			const { pending, numPending } = this;
-			this.numPending = 0;
-			for (let i = 0; i < numPending; i++) pending[i]();
-		};
-	}
-	/**
-	* @param render - Writes the value to the subject. Renders read the
-	* motion value directly rather than a cached copy, so there is one
-	* place a value lives.
-	* @param computed - A value already in this state (e.g. `transform`)
-	* whose render should run whenever `value` changes.
-	*/
-	set(name, value, render, computed) {
-		this.values.get(name)?.onRemove();
-		if (computed) {
-			for (const entry of this.values.values()) if (entry.value === computed) render = entry.render;
-		}
-		const onChange = () => render && this.schedule(render);
-		/**
-		* Values created ahead of a DOM read start out undefined and
-		* have nothing to render until they're set.
-		*/
-		value.get() !== void 0 && onChange();
-		const cancelOnChange = value.on("change", onChange);
-		const onRemove = () => {
-			cancelOnChange();
-			render && !computed && this.cancel(render);
-			this.values.delete(name);
-		};
-		this.values.set(name, {
-			value,
-			render: computed ? void 0 : render,
-			onRemove
-		});
-		return onRemove;
-	}
-	get(name) {
-		return this.values.get(name)?.value;
-	}
-	/**
-	* Detach every value from this state and return them, so another
-	* renderer can take them over. The state stays cached by its effect,
-	* so the bound transforms are reset too rather than leaking into
-	* values bound later.
-	*/
-	release() {
-		const values = /* @__PURE__ */ new Map();
-		this.values.forEach((entry, name) => {
-			values.set(name, entry.value);
-			entry.onRemove();
-		});
-		this.transformKeys = this.transformValues = void 0;
-		return values;
-	}
-	schedule(render) {
-		const { pending, numPending } = this;
-		for (let i = 0; i < numPending; i++) if (pending[i] === render) return;
-		numPending || this.step(this.flush);
-		pending[this.numPending++] = render;
-	}
-	cancel(render) {
-		const { pending } = this;
-		for (let i = 0; i < this.numPending; i++) if (pending[i] === render) {
-			pending[i] = pending[--this.numPending];
-			return;
-		}
-	}
-};
-//#endregion
-//#region node_modules/motion-dom/dist/es/effects/utils/create-effect.mjs
-function createEffect(addValue, { step, ...options } = {}) {
-	const stateCache = /* @__PURE__ */ new WeakMap();
-	const effect = (subject, values) => {
-		const state = stateCache.get(subject) ?? new MotionValueState(step);
-		stateCache.set(subject, state);
-		const subscriptions = [];
-		for (const key in values) {
-			const value = values[key];
-			const remove = addValue(subject, state, key, value);
-			subscriptions.push(remove);
-		}
-		return () => {
-			for (const cancel of subscriptions) cancel();
-		};
-	};
-	return Object.assign(effect, options, {
-		get: (subject, key) => stateCache.get(subject)?.get(key),
-		flush: (subject) => stateCache.get(subject)?.flush(),
-		state: (subject) => stateCache.get(subject)
-	});
-}
-//#endregion
-//#region node_modules/motion-dom/dist/es/effects/style/transform.mjs
-var translateAlias$1 = {
-	x: "translateX",
-	y: "translateY",
-	z: "translateZ",
-	transformPerspective: "perspective"
-};
-/**
-* Cache of `translateX(`-style openers so each render is a few string
-* concatenations rather than a template per transform.
-*/
-var openers = {};
-function buildTransform$1(state) {
-	let transform = "";
-	const { transformKeys: keys = [], transformValues: values = {} } = state;
-	/**
-	* Loop over the bound transforms in order, adding the ones that
-	* aren't at their default value to the transform string.
-	*/
-	for (let i = 0; i < keys.length; i++) {
-		const key = keys[i];
-		const value = values[key].get();
-		if (value === void 0) continue;
-		if ((typeof value === "number" ? value : parseFloat(value)) !== (key.startsWith("scale") ? 1 : 0)) transform += (transform && " ") + (openers[key] || (openers[key] = (translateAlias$1[key] || key) + "(")) + getValueAsType(value, transformValueTypes[key]) + ")";
-	}
-	const pathRotation = state.get("pathRotation")?.get();
-	if (pathRotation) transform += (transform && " ") + "rotate(" + getValueAsType(pathRotation, transformValueTypes.pathRotation) + ")";
-	return transform || "none";
-}
-//#endregion
-//#region node_modules/motion-dom/dist/es/effects/style/index.mjs
-var originProps = /* @__PURE__ */ new Set([
-	"originX",
-	"originY",
-	"originZ"
-]);
-/**
-* A bound value in its default unit, e.g. `originX: 50` -> `"50%"`.
-*/
-var styleValue = (state, key) => getValueAsType(state.get(key)?.get(), numberValueTypes[key]);
-var addStyleValue = (element, state, key, value) => {
-	let render = void 0;
-	let computed = void 0;
-	if (transformProps.has(key)) {
-		if (key !== "pathRotation") {
-			const keys = state.transformKeys ?? (state.transformKeys = []);
-			(state.transformValues ?? (state.transformValues = {}))[key] = value;
-			if (!keys.includes(key)) {
-				keys.push(key);
-				keys.sort((a, b) => transformPropOrder.indexOf(a) - transformPropOrder.indexOf(b));
-			}
-		}
-		if (!state.get("transform")) {
-			if (!isHTMLElement(element) && !state.get("transformBox")) addStyleValue(element, state, "transformBox", new MotionValue("fill-box"));
-			state.set("transform", new MotionValue("none"), () => {
-				element.style.transform = buildTransform$1(state);
-			});
-		}
-		computed = state.get("transform");
-	} else if (originProps.has(key)) {
-		if (!state.get("transformOrigin")) state.set("transformOrigin", new MotionValue(""), () => {
-			const originX = styleValue(state, "originX") ?? "50%";
-			const originY = styleValue(state, "originY") ?? "50%";
-			const originZ = styleValue(state, "originZ") ?? 0;
-			element.style.transformOrigin = `${originX} ${originY} ${originZ}`;
-		});
-		computed = state.get("transformOrigin");
-	} else if (isCSSVar(key)) render = () => {
-		element.style.setProperty(key, value.get());
-	};
-	else render = () => {
-		element.style[key] = getValueAsType(value.get(), numberValueTypes[key]);
-	};
-	return state.set(key, value, render, computed);
-};
-var isStyleSubject = (subject) => isHTMLElement(subject) || isSVGElement(subject);
-/**
-* Reads the current value of a style from the element, as the initial
-* keyframe when `animate()` targets an element via this effect. Transforms
-* are parsed out of the computed matrix; everything else is the computed
-* style. Units aren't converted to match the target keyframes. A style
-* the browser can't report is 0, as a VisualElement reports it.
-*/
-var readStyleValue = (element, key) => {
-	if (transformProps.has(key)) return readTransformValue(element, key);
-	const computedStyle = getComputedStyle(element);
-	const value = isCSSVar(key) ? computedStyle.getPropertyValue(key) : computedStyle[key];
-	return typeof value === "string" && value.trim() || 0;
-};
-/**
-* The per-element effect `animate()` binds through, so HTML values share
-* state with a direct `styleEffect()` call. The exported `styleEffect`
-* is this wrapped to also accept selectors.
-*/
-var styleSubjectEffect = /*@__PURE__*/ createEffect(addStyleValue, {
-	test: isStyleSubject,
-	read: readStyleValue
-});
 //#endregion
 //#region node_modules/motion-dom/dist/es/render/html/utils/build-transform.mjs
 var translateAlias = {
@@ -4476,81 +4076,6 @@ function buildSVGAttrs(state, { attrX, attrY, attrScale, pathLength, pathSpacing
 	if (attrY !== void 0) attrs.y = attrY;
 	if (attrScale !== void 0) attrs.scale = attrScale;
 	if (pathLength !== void 0) buildSVGPath(attrs, pathLength, pathSpacing, pathOffset, false);
-}
-//#endregion
-//#region node_modules/motion-dom/dist/es/effects/attr/index.mjs
-function canSetAsProperty(element, name) {
-	if (!(name in element)) return false;
-	const descriptor = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(element), name) || Object.getOwnPropertyDescriptor(element, name);
-	return descriptor && typeof descriptor.set === "function";
-}
-/**
-* `name` is the attribute written when it differs from the key the value
-* is stored under, e.g. `attrX` -> `x`. Numbers take the attribute's
-* default unit (`x: 100` -> `"100px"`), as they do when key and name match.
-*/
-var addAttrValue = (element, state, key, value, name = key) => {
-	const isProp = canSetAsProperty(element, name);
-	if (!isProp && (name.startsWith("data") || name.startsWith("aria"))) name = camelToDash(name);
-	const type = numberValueTypes[key] || numberValueTypes[name];
-	/**
-	* Set attribute directly via property if available
-	*/
-	const render = isProp ? () => {
-		element[name] = getValueAsType(value.get(), numberValueTypes[key]);
-	} : () => {
-		const v = getValueAsType(value.get(), type);
-		if (v === null || v === void 0) element.removeAttribute(name);
-		else element.setAttribute(name, String(v));
-	};
-	return state.set(key, value, render);
-};
-//#endregion
-//#region node_modules/motion-dom/dist/es/effects/svg/index.mjs
-function addSVGPathValue(element, state, key, value) {
-	frame.render(() => element.setAttribute("pathLength", "1"));
-	if (key === "pathOffset") return state.set(key, value, () => {
-		const offset = value.get();
-		element.setAttribute("stroke-dashoffset", `${-offset}`);
-	});
-	else {
-		if (!state.get("stroke-dasharray")) state.set("stroke-dasharray", new MotionValue("1 1"), () => {
-			const pathLength = state.get("pathLength")?.get() ?? 1;
-			const pathSpacing = state.get("pathSpacing")?.get();
-			element.setAttribute("stroke-dasharray", `${pathLength} ${pathSpacing ?? 1 - Number(pathLength)}`);
-		});
-		return state.set(key, value, void 0, state.get("stroke-dasharray"));
-	}
-}
-var addSVGValue = (element, state, key, value) => {
-	if (key.startsWith("path")) return addSVGPathValue(element, state, key, value);
-	else if (key.startsWith("attr")) return addAttrValue(element, state, key, value, convertAttrKey(key));
-	return (key in element.style ? addStyleValue : addAttrValue)(element, state, key, value);
-};
-/**
-* Reads the current value of `key` from an SVG element as the origin of
-* an animation, as the SVG VisualElement does: transforms start from
-* their defaults, the few CSS-only properties come from computed style
-* and everything else is read from the attribute, dash-cased
-* (`strokeWidth` -> `stroke-width`) or, failing that, as written
-* (`baseFrequency`).
-*/
-var readSVGValue = (element, key) => {
-	if (transformProps.has(key)) return numberValueTypes[key]?.default || 0;
-	if (cssStyleProperties.includes(key)) return readStyleValue(element, key);
-	key = convertAttrKey(key);
-	return element.getAttribute(camelToDash(key)) ?? element.getAttribute(key) ?? void 0;
-};
-/**
-* The per-element effect `animate()` binds through, so SVG values share
-* state with a direct `svgEffect()` call.
-*/
-var svgSubjectEffect = /*@__PURE__*/ createEffect(addSVGValue, {
-	test: isSVGElement,
-	read: readSVGValue
-});
-function convertAttrKey(key) {
-	return key.replace(/^attr([A-Z])/, (_, firstChar) => firstChar.toLowerCase());
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/projection/geometry/conversion.mjs
@@ -4726,70 +4251,6 @@ function measurePageBox(element, rootProjectionNode, transformPagePoint) {
 	}
 	return viewportBox;
 }
-//#endregion
-//#region node_modules/motion-dom/dist/es/animation/animate/element.mjs
-var noProps = {};
-var getElementEffect = (element) => isSVGElement(element) ? svgSubjectEffect : styleSubjectEffect;
-/**
-* Presents an effect bound to a DOM element in the shape the DOM keyframe
-* resolver and WAAPI expect, which is that of a VisualElement. Holds no
-* state: everything delegates to the effect. Goes once the resolver takes
-* an effect and subject directly.
-*/
-var EffectSubject = class {
-	constructor(effect, current) {
-		this.effect = effect;
-		this.current = current;
-		this.KeyframeResolver = DOMKeyframesResolver;
-	}
-	getValue(key) {
-		return this.effect.get(this.current, key);
-	}
-	readValue(key, target) {
-		return this.effect.read(this.current, key, target);
-	}
-	render() {
-		this.effect.flush(this.current);
-	}
-	measureViewportBox() {
-		return measureViewportBox(this.current);
-	}
-	getProps() {
-		return noProps;
-	}
-};
-/**
-* Animate a DOM element's styles. HTML elements are bound through
-* styleEffect, SVG through svgEffect, and both are resolved with the DOM
-* keyframe resolver so reads are batched, units are converted by
-* measurement and eligible values run on WAAPI.
-*
-* Pass the element's VisualElement (a <motion.*> component or an
-* animateLayout() node) to animate its values instead, so the two keep
-* sharing values and a renderer.
-*/
-function animateElement(element, keyframes, transition, visualElement) {
-	if (visualElement) return animateValues((key) => visualElement.getValue(key, null), keyframes, transition, visualElement);
-	const effect = getElementEffect(element);
-	return animateEffectSubject(effect, element, keyframes, transition, new EffectSubject(effect, element));
-}
-//#endregion
-//#region node_modules/motion-dom/dist/es/effects/prop/index.mjs
-/**
-* Writes motion values to the properties of any object. This is
-* animate()'s fallback for subjects no registered effect claims.
-*/
-var propEffect = /*@__PURE__*/ createEffect((subject, state, key, value) => {
-	return state.set(key, value, () => {
-		subject[key] = value.get();
-	});
-}, {
-	test: (subject) => isObject(subject),
-	read: (subject, key) => {
-		const value = subject[key];
-		return typeof value === "string" || typeof value === "number" ? value : void 0;
-	}
-});
 //#endregion
 //#region node_modules/motion-dom/dist/es/frameloop/microtask.mjs
 var { schedule: microtask, cancel: cancelMicrotask } = /* @__PURE__ */ createRenderBatcher(queueMicrotask, false);
@@ -7216,7 +6677,7 @@ function createProjectionNode$1({ attachResizeListener, defaultParent, measureSc
 						this.resumingFrom.resumingFrom = void 0;
 					}
 					const animationOptions = {
-						...getValueTransition$1(layoutTransition, "layout"),
+						...getValueTransition(layoutTransition, "layout"),
 						onPlay: onLayoutAnimationStart,
 						onComplete: onLayoutAnimationComplete
 					};
@@ -11515,534 +10976,4 @@ function useReducedMotion() {
 	return shouldReduceMotion;
 }
 //#endregion
-//#region node_modules/framer-motion/dist/es/animation/utils/is-dom-keyframes.mjs
-function isDOMKeyframes(keyframes) {
-	return typeof keyframes === "object" && !Array.isArray(keyframes);
-}
-//#endregion
-//#region node_modules/framer-motion/dist/es/animation/animate/resolve-subjects.mjs
-function resolveSubjects(subject, keyframes, scope, selectorCache) {
-	if (subject == null) return [];
-	if (typeof subject === "string" && isDOMKeyframes(keyframes)) return resolveElements(subject, scope, selectorCache);
-	else if (subject instanceof NodeList) return Array.from(subject);
-	else if (Array.isArray(subject)) return subject.filter((s) => s != null);
-	else return [subject];
-}
-//#endregion
-//#region node_modules/framer-motion/dist/es/animation/sequence/utils/calc-repeat-duration.mjs
-function calculateRepeatDuration(duration, repeat, repeatDelay) {
-	return duration * (repeat + 1) + repeatDelay * repeat;
-}
-//#endregion
-//#region node_modules/framer-motion/dist/es/animation/sequence/utils/calc-time.mjs
-/**
-* Given a absolute or relative time definition and current/prev time state of the sequence,
-* calculate an absolute time for the next keyframes.
-*/
-function calcNextTime(current, next, prev, labels) {
-	if (typeof next === "number") return next;
-	else if (next.startsWith("-") || next.startsWith("+")) return Math.max(0, current + parseFloat(next));
-	else if (next === "<") return prev;
-	else if (next.startsWith("<")) return Math.max(0, prev + parseFloat(next.slice(1)));
-	else return labels.get(next) ?? current;
-}
-//#endregion
-//#region node_modules/framer-motion/dist/es/animation/sequence/utils/edit.mjs
-function eraseKeyframes(sequence, startTime, endTime) {
-	for (let i = 0; i < sequence.length; i++) {
-		const keyframe = sequence[i];
-		if (keyframe.at > startTime && keyframe.at < endTime) {
-			removeItem(sequence, keyframe);
-			i--;
-		}
-	}
-}
-function addKeyframes(sequence, keyframes, easing, offset, startTime, endTime) {
-	/**
-	* Erase every existing value between currentTime and targetTime,
-	* this will essentially splice this timeline into any currently
-	* defined ones.
-	*/
-	eraseKeyframes(sequence, startTime, endTime);
-	for (let i = 0; i < keyframes.length; i++) sequence.push({
-		value: keyframes[i],
-		at: mixNumber$1(startTime, endTime, offset[i]),
-		easing: /* @__PURE__ */ getEasingForSegment(easing, i)
-	});
-}
-//#endregion
-//#region node_modules/framer-motion/dist/es/animation/sequence/utils/normalize-times.mjs
-/**
-* Take an array of times that represent repeated keyframes. For instance
-* if we have original times of [0, 0.5, 1] then our repeated times will
-* be [0, 0.5, 1, 1, 1.5, 2]. Loop over the times and scale them back
-* down to a 0-1 scale.
-*
-* `repeatDelayUnits` is the repeatDelay expressed in units of a single
-* iteration's duration, so the total span equals `(repeat + 1) + repeat * repeatDelayUnits`.
-*/
-function normalizeTimes(times, repeat, repeatDelayUnits = 0) {
-	const totalUnits = repeat + 1 + repeat * repeatDelayUnits;
-	for (let i = 0; i < times.length; i++) times[i] = times[i] / totalUnits;
-}
-//#endregion
-//#region node_modules/framer-motion/dist/es/animation/sequence/utils/sort.mjs
-function compareByTime(a, b) {
-	if (a.at === b.at) {
-		if (a.value === null) return 1;
-		if (b.value === null) return -1;
-		return 0;
-	} else return a.at - b.at;
-}
-//#endregion
-//#region node_modules/framer-motion/dist/es/animation/sequence/create.mjs
-var defaultSegmentEasing = "easeInOut";
-var MAX_REPEAT = 20;
-function createAnimationsFromSequence(sequence, { defaultTransition = {}, ...sequenceTransition } = {}, scope, generators) {
-	const defaultDuration = defaultTransition.duration || .3;
-	const animationDefinitions = /* @__PURE__ */ new Map();
-	const sequences = /* @__PURE__ */ new Map();
-	const elementCache = {};
-	const timeLabels = /* @__PURE__ */ new Map();
-	let prevTime = 0;
-	let currentTime = 0;
-	let totalDuration = 0;
-	/**
-	* Build the timeline by mapping over the sequence array and converting
-	* the definitions into keyframes and offsets with absolute time values.
-	* These will later get converted into relative offsets in a second pass.
-	*/
-	for (let i = 0; i < sequence.length; i++) {
-		const segment = sequence[i];
-		/**
-		* If this is a timeline label, mark it and skip the rest of this iteration.
-		*/
-		if (typeof segment === "string") {
-			timeLabels.set(segment, currentTime);
-			continue;
-		} else if (!Array.isArray(segment)) {
-			timeLabels.set(segment.name, calcNextTime(currentTime, segment.at, prevTime, timeLabels));
-			continue;
-		}
-		let [subject, keyframes, transition = {}] = segment;
-		/**
-		* If a relative or absolute time value has been specified we need to resolve
-		* it in relation to the currentTime.
-		*/
-		if (transition.at !== void 0) currentTime = calcNextTime(currentTime, transition.at, prevTime, timeLabels);
-		/**
-		* Keep track of the maximum duration in this definition. This will be
-		* applied to currentTime once the definition has been parsed.
-		*/
-		let maxDuration = 0;
-		const resolveValueSequence = (valueKeyframes, valueTransition, valueSequence, elementIndex = 0, numSubjects = 0) => {
-			const valueKeyframesAsList = keyframesAsList(valueKeyframes);
-			const { delay = 0, times = defaultOffset$1(valueKeyframesAsList), type = defaultTransition.type || "keyframes", repeat, repeatType, repeatDelay = 0, ...remainingTransition } = valueTransition;
-			let { ease = defaultTransition.ease || "easeOut", duration } = valueTransition;
-			/**
-			* Resolve stagger() if defined.
-			*/
-			const calculatedDelay = typeof delay === "function" ? delay(elementIndex, numSubjects) : delay;
-			/**
-			* If this animation should and can use a spring, generate a spring easing function.
-			*/
-			const numKeyframes = valueKeyframesAsList.length;
-			const createGenerator = isGenerator(type) ? type : generators?.[type || "keyframes"];
-			if (numKeyframes <= 2 && createGenerator) {
-				/**
-				* As we're creating an easing function from a spring,
-				* ideally we want to generate it using the real distance
-				* between the two keyframes. However this isn't always
-				* possible - in these situations we use 0-100.
-				*/
-				let absoluteDelta = 100;
-				if (numKeyframes === 2 && isNumberKeyframesArray(valueKeyframesAsList)) {
-					const delta = valueKeyframesAsList[1] - valueKeyframesAsList[0];
-					absoluteDelta = Math.abs(delta);
-				}
-				const springTransition = {
-					...defaultTransition,
-					...remainingTransition
-				};
-				if (duration !== void 0) springTransition.duration = /* @__PURE__ */ secondsToMilliseconds(duration);
-				const springEasing = createGeneratorEasing(springTransition, absoluteDelta, createGenerator);
-				ease = springEasing.ease;
-				duration = springEasing.duration;
-			}
-			duration ?? (duration = defaultDuration);
-			const startTime = currentTime + calculatedDelay;
-			/**
-			* If there's only one time offset of 0, fill in a second with length 1
-			*/
-			if (times.length === 1 && times[0] === 0) times[1] = 1;
-			/**
-			* Fill out if offset if fewer offsets than keyframes
-			*/
-			const remainder = times.length - valueKeyframesAsList.length;
-			remainder > 0 && fillOffset(times, remainder);
-			/**
-			* If only one value has been set, ie [1], push a null to the start of
-			* the keyframe array. This will let us mark a keyframe at this point
-			* that will later be hydrated with the previous value.
-			*/
-			valueKeyframesAsList.length === 1 && valueKeyframesAsList.unshift(null);
-			/**
-			* Segments can't express `repeat: Infinity` or very large
-			* counts — they'd leave dead time after the segment or
-			* explode the keyframe array. Ignore with a warning.
-			*/
-			if (repeat) `${repeat}${MAX_REPEAT}`;
-			if (repeat && repeat < MAX_REPEAT) {
-				/**
-				* Express repeatDelay in units of a single iteration's duration
-				* so it can be added to the per-iteration time offsets below
-				* before they're normalized to 0-1.
-				*/
-				const repeatDelayUnits = duration > 0 ? repeatDelay / duration : 0;
-				duration = calculateRepeatDuration(duration, repeat, repeatDelay);
-				const originalKeyframes = [...valueKeyframesAsList];
-				const originalTimes = [...times];
-				ease = Array.isArray(ease) ? [...ease] : [ease];
-				const originalEase = [...ease];
-				/**
-				* For reverse/mirror, alternate iterations play the segment
-				* backwards. mirror matches JSAnimation's mirroredGenerator:
-				* reversed keyframes, easings unchanged. reverse matches
-				* JSAnimation's iterationProgress = 1 - p: reversed
-				* keyframes, easing array reversed AND each function easing
-				* mapped through reverseEasing (string easings unchanged —
-				* they're resolved later by the keyframes engine).
-				*/
-				const isFlipping = repeatType === "reverse" || repeatType === "mirror";
-				let flippedKeyframes = originalKeyframes;
-				let flippedEases = originalEase;
-				if (isFlipping) {
-					flippedKeyframes = [...originalKeyframes].reverse();
-					if (repeatType === "reverse") flippedEases = [...originalEase].reverse().map((e) => typeof e === "function" ? /* @__PURE__ */ reverseEasing(e) : e);
-				}
-				for (let repeatIndex = 0; repeatIndex < repeat; repeatIndex++) {
-					const isFlipped = isFlipping && repeatIndex % 2 === 0;
-					const iterKeyframes = isFlipped ? flippedKeyframes : originalKeyframes;
-					const iterEase = isFlipped ? flippedEases : originalEase;
-					const iterStartOffset = (repeatIndex + 1) * (1 + repeatDelayUnits);
-					/**
-					* If repeatDelay is set, hold the previous iteration's
-					* final value through the delay by inserting a keyframe
-					* at the moment the next iteration begins.
-					*/
-					if (repeatDelayUnits > 0) {
-						valueKeyframesAsList.push(valueKeyframesAsList[valueKeyframesAsList.length - 1]);
-						times.push(iterStartOffset);
-						ease.push("linear");
-					}
-					valueKeyframesAsList.push(...iterKeyframes);
-					for (let keyframeIndex = 0; keyframeIndex < iterKeyframes.length; keyframeIndex++) {
-						times.push(originalTimes[keyframeIndex] + iterStartOffset);
-						ease.push(keyframeIndex === 0 ? "linear" : /* @__PURE__ */ getEasingForSegment(iterEase, keyframeIndex - 1));
-					}
-				}
-				normalizeTimes(times, repeat, repeatDelayUnits);
-			}
-			const targetTime = startTime + duration;
-			/**
-			* Add keyframes, mapping offsets to absolute time.
-			*/
-			addKeyframes(valueSequence, valueKeyframesAsList, ease, times, startTime, targetTime);
-			maxDuration = Math.max(calculatedDelay + duration, maxDuration);
-			totalDuration = Math.max(targetTime, totalDuration);
-		};
-		if (isMotionValue(subject)) {
-			const subjectSequence = getSubjectSequence(subject, sequences);
-			resolveValueSequence(keyframes, transition, getValueSequence("default", subjectSequence));
-		} else {
-			const subjects = resolveSubjects(subject, keyframes, scope, elementCache);
-			const numSubjects = subjects.length;
-			/**
-			* For every element in this segment, process the defined values.
-			*/
-			for (let subjectIndex = 0; subjectIndex < numSubjects; subjectIndex++) {
-				/**
-				* Cast necessary, but we know these are of this type
-				*/
-				keyframes = keyframes;
-				transition = transition;
-				const thisSubject = subjects[subjectIndex];
-				const subjectSequence = getSubjectSequence(thisSubject, sequences);
-				for (const key in keyframes) resolveValueSequence(keyframes[key], getValueTransition(transition, key), getValueSequence(key, subjectSequence), subjectIndex, numSubjects);
-			}
-		}
-		prevTime = currentTime;
-		currentTime += maxDuration;
-	}
-	/**
-	* For every element and value combination create a new animation.
-	*/
-	sequences.forEach((valueSequences, element) => {
-		for (const key in valueSequences) {
-			const valueSequence = valueSequences[key];
-			/**
-			* Arrange all the keyframes in ascending time order.
-			*/
-			valueSequence.sort(compareByTime);
-			const keyframes = [];
-			const valueOffset = [];
-			const valueEasing = [];
-			/**
-			* For each keyframe, translate absolute times into
-			* relative offsets based on the total duration of the timeline.
-			*/
-			for (let i = 0; i < valueSequence.length; i++) {
-				const { at, value, easing } = valueSequence[i];
-				keyframes.push(value);
-				valueOffset.push(/* @__PURE__ */ progress(0, totalDuration, at));
-				valueEasing.push(easing || "easeOut");
-			}
-			/**
-			* If the first keyframe doesn't land on offset: 0
-			* provide one by duplicating the initial keyframe. This ensures
-			* it snaps to the first keyframe when the animation starts.
-			*/
-			if (valueOffset[0] !== 0) {
-				valueOffset.unshift(0);
-				keyframes.unshift(keyframes[0]);
-				valueEasing.unshift(defaultSegmentEasing);
-			}
-			/**
-			* If the last keyframe doesn't land on offset: 1
-			* provide one with a null wildcard value. This will ensure it
-			* stays static until the end of the animation.
-			*/
-			if (valueOffset[valueOffset.length - 1] !== 1) {
-				valueOffset.push(1);
-				keyframes.push(null);
-			}
-			if (!animationDefinitions.has(element)) animationDefinitions.set(element, {
-				keyframes: {},
-				transition: {}
-			});
-			const definition = animationDefinitions.get(element);
-			definition.keyframes[key] = keyframes;
-			/**
-			* Exclude `type` from defaultTransition since springs have been
-			* converted to duration-based easing functions in resolveValueSequence.
-			* Including `type: "spring"` would cause JSAnimation to error when
-			* the merged keyframes array has more than 2 keyframes.
-			*/
-			const { type: _type, ...remainingDefaultTransition } = defaultTransition;
-			definition.transition[key] = {
-				...remainingDefaultTransition,
-				duration: totalDuration,
-				ease: valueEasing,
-				times: valueOffset,
-				...sequenceTransition
-			};
-		}
-	});
-	return animationDefinitions;
-}
-function getSubjectSequence(subject, sequences) {
-	!sequences.has(subject) && sequences.set(subject, {});
-	return sequences.get(subject);
-}
-function getValueSequence(name, sequences) {
-	if (!sequences[name]) sequences[name] = [];
-	return sequences[name];
-}
-function keyframesAsList(keyframes) {
-	return Array.isArray(keyframes) ? keyframes : [keyframes];
-}
-function getValueTransition(transition, key) {
-	return transition && transition[key] ? {
-		...transition,
-		...transition[key]
-	} : { ...transition };
-}
-var isNumber = (keyframe) => typeof keyframe === "number";
-var isNumberKeyframesArray = (keyframes) => keyframes.every(isNumber);
-//#endregion
-//#region node_modules/framer-motion/dist/es/animation/animate/subject.mjs
-function isSingleValue(subject, keyframes) {
-	return isMotionValue(subject) || typeof subject === "number" || typeof subject === "string" && !isDOMKeyframes(keyframes);
-}
-/**
-* Implementation
-*/
-function animateSubject(subject, keyframes, options, scope) {
-	const animations = [];
-	if (isSingleValue(subject, keyframes)) animations.push(animateSingleValue(subject, isDOMKeyframes(keyframes) ? keyframes.default || keyframes : keyframes, options ? options.default || options : options));
-	else {
-		if (subject == null) return animations;
-		const subjects = resolveSubjects(subject, keyframes, scope);
-		const numSubjects = subjects.length;
-		for (let i = 0; i < numSubjects; i++) {
-			const thisSubject = subjects[i];
-			const transition = { ...options };
-			/**
-			* Resolve stagger function if provided.
-			*/
-			if ("delay" in transition && typeof transition.delay === "function") transition.delay = transition.delay(i, numSubjects);
-			if (thisSubject instanceof Element)
- /**
-			* An element already owned by a VisualElement (a <motion.*>
-			* component or animateLayout()) animates its values so they
-			* share one renderer. Anything else is driven through
-			* styleEffect (or svgEffect) and the DOM keyframe resolver,
-			* without creating a VisualElement.
-			*/
-			animations.push(...animateElement(thisSubject, keyframes, transition, visualElementStore.get(thisSubject)));
-			else
- /**
-			* Registered effects (animate.addEffect) claim non-DOM
-			* subjects before we fall back to writing plain properties.
-			*/
-			animations.push(...animateEffectSubject(findEffect(thisSubject) ?? propEffect, thisSubject, keyframes, transition));
-		}
-	}
-	return animations;
-}
-//#endregion
-//#region node_modules/framer-motion/dist/es/animation/animate/sequence.mjs
-function animateSequence(sequence, options, scope) {
-	const animations = [];
-	createAnimationsFromSequence(sequence.map((segment) => {
-		if (Array.isArray(segment) && typeof segment[0] === "function") {
-			const callback = segment[0];
-			const mv = motionValue(0);
-			mv.on("change", callback);
-			if (segment.length === 1) return [mv, [0, 1]];
-			else if (segment.length === 2) return [
-				mv,
-				[0, 1],
-				segment[1]
-			];
-			else return [
-				mv,
-				segment[1],
-				segment[2]
-			];
-		}
-		return segment;
-	}), options, scope, { spring }).forEach(({ keyframes, transition }, subject) => {
-		animations.push(...animateSubject(subject, keyframes, transition));
-	});
-	return animations;
-}
-//#endregion
-//#region node_modules/framer-motion/dist/es/animation/animate/index.mjs
-function isSequence(value) {
-	return Array.isArray(value) && value.some(Array.isArray);
-}
-/**
-* Creates an animation function that is optionally scoped
-* to a specific element.
-*/
-function createScopedAnimate(options = {}) {
-	const { scope, reduceMotion, skipAnimations } = options;
-	/**
-	* Implementation
-	*/
-	function scopedAnimate(subjectOrSequence, optionsOrKeyframes, options) {
-		let animations = [];
-		let animationOnComplete;
-		const inherited = {};
-		if (reduceMotion !== void 0) inherited.reduceMotion = reduceMotion;
-		if (skipAnimations !== void 0) inherited.skipAnimations = skipAnimations;
-		if (isSequence(subjectOrSequence)) {
-			const { onComplete, ...sequenceOptions } = optionsOrKeyframes || {};
-			if (typeof onComplete === "function") animationOnComplete = onComplete;
-			animations = animateSequence(subjectOrSequence, {
-				...inherited,
-				...sequenceOptions
-			}, scope);
-		} else {
-			const { onComplete, ...rest } = options || {};
-			if (typeof onComplete === "function") animationOnComplete = onComplete;
-			animations = animateSubject(subjectOrSequence, optionsOrKeyframes, {
-				...inherited,
-				...rest
-			}, scope);
-		}
-		const animation = new GroupAnimationWithThen(animations);
-		if (animationOnComplete) animation.finished.then(animationOnComplete);
-		if (scope) {
-			scope.animations.push(animation);
-			animation.finished.then(() => {
-				removeItem(scope.animations, animation);
-			});
-		}
-		return animation;
-	}
-	return scopedAnimate;
-}
-var animate = Object.assign(createScopedAnimate(), {
-	/**
-	* Register an effect so `animate()` can animate the subjects it
-	* claims, for instance `animate.addEffect(threeEffect)`. The most
-	* recently added effect is tested first. DOM elements are always
-	* animated directly.
-	*/
-	addEffect,
-	removeEffect
-});
-//#endregion
-//#region node_modules/framer-motion/dist/es/render/dom/viewport/index.mjs
-var thresholds = {
-	some: 0,
-	all: 1
-};
-function inView(elementOrSelector, onStart, { root, margin: rootMargin, amount = "some" } = {}) {
-	const elements = resolveElements(elementOrSelector);
-	const activeIntersections = /* @__PURE__ */ new WeakMap();
-	const onIntersectionChange = (entries) => {
-		entries.forEach((entry) => {
-			const onEnd = activeIntersections.get(entry.target);
-			/**
-			* If there's no change to the intersection, we don't need to
-			* do anything here.
-			*/
-			if (entry.isIntersecting === Boolean(onEnd)) return;
-			if (entry.isIntersecting) {
-				const newOnEnd = onStart(entry.target, entry);
-				if (typeof newOnEnd === "function") activeIntersections.set(entry.target, newOnEnd);
-				else observer.unobserve(entry.target);
-			} else if (typeof onEnd === "function") {
-				onEnd(entry);
-				activeIntersections.delete(entry.target);
-			}
-		});
-	};
-	const observer = new IntersectionObserver(onIntersectionChange, {
-		root,
-		rootMargin,
-		threshold: typeof amount === "number" ? amount : thresholds[amount]
-	});
-	elements.forEach((element) => observer.observe(element));
-	return () => observer.disconnect();
-}
-//#endregion
-//#region node_modules/framer-motion/dist/es/utils/use-in-view.mjs
-function useInView(ref, { root, margin, amount, once = false, initial = false } = {}) {
-	const [isInView, setInView] = (0, import_react.useState)(initial);
-	(0, import_react.useEffect)(() => {
-		if (!ref.current || once && isInView) return;
-		const onEnter = () => {
-			setInView(true);
-			return once ? void 0 : () => setInView(false);
-		};
-		const options = {
-			root: root && root.current || void 0,
-			margin,
-			amount
-		};
-		return inView(ref.current, onEnter, options);
-	}, [
-		root,
-		ref,
-		margin,
-		once,
-		amount
-	]);
-	return isInView;
-}
-//#endregion
-export { useTransform as a, useMotionValueEvent as c, useSpring as i, motion as l, animate as n, useMotionValue as o, useReducedMotion as r, useScroll as s, useInView as t, AnimatePresence as u };
+export { useScroll as a, AnimatePresence as c, useMotionValue as i, useSpring as n, useMotionValueEvent as o, useTransform as r, motion as s, useReducedMotion as t };

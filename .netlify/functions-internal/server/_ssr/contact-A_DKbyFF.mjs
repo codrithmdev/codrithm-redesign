@@ -1,8 +1,8 @@
 import { m as createFileRoute, p as lazyRouteComponent } from "../_libs/@tanstack/react-router+[...].mjs";
-import { t as serviceSlugs } from "./services-BSTx4X1D.mjs";
+import { t as serviceSlugs } from "./services-DwCL1mA1.mjs";
 import { n as objectType, t as enumType } from "../_libs/zod.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/contact-B97vQbIX.js
-var $$splitComponentImporter = () => import("./contact-v5Ae5JpF.mjs");
+//#region node_modules/.nitro/vite/services/ssr/assets/contact-A_DKbyFF.js
+var $$splitComponentImporter = () => import("./contact-DRl3SYFW.mjs");
 var contactTypeSchema = enumType([
 	"project",
 	"partnership",

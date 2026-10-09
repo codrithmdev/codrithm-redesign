@@ -1,5 +1,5 @@
 import { v as require_jsx_runtime } from "../_libs/@tanstack/react-router+[...].mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/icons-DQ1CEv9d.js
+//#region node_modules/.nitro/vite/services/ssr/assets/icons-d-ZqtYhg.js
 var import_jsx_runtime = require_jsx_runtime();
 function Icon({ children, ...props }) {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("svg", {
@@ -18,10 +18,6 @@ var ArrowRight = (props) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Icon, {
 	...props,
 	children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { d: "M5 12h14M13 6l6 6-6 6" })
 });
-var ArrowLeft = (props) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Icon, {
-	...props,
-	children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { d: "M19 12H5m6 6-6-6 6-6" })
-});
 var ArrowUpRight = (props) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Icon, {
 	...props,
 	children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { d: "M7 17 17 7M8 7h9v9" })
@@ -29,10 +25,6 @@ var ArrowUpRight = (props) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Icon, 
 var ChevronDown = (props) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Icon, {
 	...props,
 	children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { d: "m6 9 6 6 6-6" })
-});
-var Check = (props) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Icon, {
-	...props,
-	children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { d: "m5 12 4 4L19 6" })
 });
 var Plus = (props) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Icon, {
 	...props,
@@ -78,9 +70,5 @@ var Sparkles = (props) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Icon, {
 	...props,
 	children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { d: "m12 3 1.5 5.5L19 10l-5.5 1.5L12 17l-1.5-5.5L5 10l5.5-1.5L12 3ZM19 17l.6 2.4L22 20l-2.4.6L19 23l-.6-2.4L16 20l2.4-.6L19 17Z" })
 });
-var TrendingUp = (props) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Icon, {
-	...props,
-	children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { d: "m4 16 6-6 4 4 6-7M15 7h5v5" })
-});
 //#endregion
-export { BarChart3 as a, ChevronDown as c, Plus as d, Settings as f, Users as h, ArrowUpRight as i, Megaphone as l, TrendingUp as m, ArrowLeft as n, Bell as o, Sparkles as p, ArrowRight as r, Check as s, Activity as t, Package as u };
+export { Bell as a, Package as c, Sparkles as d, Users as f, BarChart3 as i, Plus as l, ArrowRight as n, ChevronDown as o, ArrowUpRight as r, Megaphone as s, Activity as t, Settings as u };

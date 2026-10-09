@@ -1,6 +1,6 @@
 import { v as require_jsx_runtime } from "../_libs/@tanstack/react-router+[...].mjs";
-import { t as PageShell } from "./PageShell-DLwgyuLZ.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/privacy-DN2XK3El.js
+import { t as PageShell } from "./PageShell-CyiN5KzD.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/privacy-1VJ14OSk.js
 var import_jsx_runtime = require_jsx_runtime();
 function PrivacyPage() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(PageShell, {

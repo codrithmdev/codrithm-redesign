@@ -1,84 +1,74 @@
+import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowRight, Check } from "lucide-react";
+import { Activity, ArrowRight, Sparkles, Users } from "lucide-react";
 import { SectionHeading } from "./SectionHeading";
 import { Stagger, StaggerItem } from "@/animations/stagger";
 import { tHover } from "@/animations/transitions";
 import { useMotionPrefs } from "@/animations/useMotionPrefs";
 import { cn } from "@/lib/utils";
 
-const baseFeatures = [
-  "Community learning sessions",
-  "Peer-led discussion spaces",
-  "Project and event updates",
-  "A welcoming learning network",
-  "Opportunities to collaborate",
-];
-
-const plans = [
-  { price: "Learn", name: "Start your journey", features: baseFeatures, featured: false },
+const themes = [
   {
-    price: "Build",
-    name: "Create with others",
-    features: [...baseFeatures, "Hands-on collaborative projects"],
-    featured: true,
+    title: "Learn",
+    description: "Practical sessions, workshops, and knowledge sharing.",
+    icon: Sparkles,
   },
-  { price: "Connect", name: "Partner with Codrithm", features: baseFeatures, featured: false },
+  {
+    title: "Build",
+    description: "Projects, experimentation, and collaborative learning.",
+    icon: Activity,
+  },
+  {
+    title: "Connect",
+    description: "Opportunities to meet peers, mentors, and professionals.",
+    icon: Users,
+  },
 ];
 
 export function Pricing() {
   const { reduced } = useMotionPrefs();
 
   return (
-    <section id="pricing" className="mx-auto w-full max-w-7xl px-5 py-24 lg:px-8 lg:py-32">
+    <section id="community" className="mx-auto w-full max-w-7xl px-5 py-24 lg:px-8 lg:py-32">
       <SectionHeading
-        title="A community for"
-        highlight="every stage"
-        subtitle="Whether you are starting out, building confidence, or looking to collaborate, there is a place for you here."
+        title="More Than Client"
+        highlight="Work"
+        subtitle="Codrithm is also a technology community bringing students, developers, and industry professionals together through learning sessions, projects, and collaborations."
       />
 
       <Stagger className="mt-16 grid gap-6 lg:grid-cols-3" stagger={0.08}>
-        {plans.map((plan) => (
-          <StaggerItem key={plan.name}>
-            <motion.div
-              whileHover={reduced ? {} : { y: -4 }}
-              transition={tHover}
-              className={cn(
-                "surface-card flex h-full flex-col rounded-2xl p-8 transition-colors duration-300 hover:border-border-strong",
-                plan.featured && "border-primary/60 shadow-[var(--shadow-glow)]",
-              )}
-            >
-              <p className="font-display text-4xl">
-                {plan.price}
-              </p>
-              <p className="mt-3 text-lg">{plan.name}</p>
-              <p className="mt-4 text-sm text-muted-foreground">
-                A supportive path into practical technology skills, genuine connections, and work you can be proud of.
-              </p>
-
-              <motion.button
-                whileHover={reduced ? {} : { scale: 1.02, y: -2 }}
-                whileTap={reduced ? {} : { scale: 0.98 }}
+        {themes.map((theme, index) => {
+          const Icon = theme.icon;
+          return (
+            <StaggerItem key={theme.title}>
+              <motion.article
+                whileHover={reduced ? {} : { y: -4 }}
                 transition={tHover}
-                className="group mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-medium text-primary-foreground shadow-[var(--shadow-glow)] transition-colors duration-300 hover:bg-primary/90"
+                className={cn(
+                  "surface-card flex h-full flex-col rounded-2xl p-8 transition-colors duration-300 hover:border-border-strong",
+                  index === 1 && "border-primary/60 shadow-[var(--shadow-glow)]",
+                )}
               >
-                Join Codrithm
-                <ArrowRight className="size-4 transition-transform duration-200 ease-[var(--ease-standard)] group-hover:translate-x-1" />
-              </motion.button>
-
-              <ul className="mt-8 space-y-3 border-t border-border pt-8">
-                {plan.features.map((f) => (
-                  <li key={f} className="flex items-center gap-3 text-sm text-muted-foreground">
-                    <span className="grid size-5 shrink-0 place-items-center rounded-md bg-[image:var(--gradient-solar)] text-primary-foreground">
-                      <Check className="size-3.5" strokeWidth={3} />
-                    </span>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          </StaggerItem>
-        ))}
+                <div className="grid size-11 place-items-center rounded-xl bg-primary text-primary-foreground shadow-[var(--shadow-glow)]">
+                  <Icon className="size-5" aria-hidden />
+                </div>
+                <h3 className="font-display mt-7 text-3xl">{theme.title}</h3>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">{theme.description}</p>
+              </motion.article>
+            </StaggerItem>
+          );
+        })}
       </Stagger>
+
+      <div className="mt-10 text-center">
+        <Link
+          to="/community"
+          className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-[var(--shadow-glow)] transition-all hover:-translate-y-0.5 hover:bg-primary/90"
+        >
+          Explore Our Community
+          <ArrowRight className="size-4" aria-hidden />
+        </Link>
+      </div>
     </section>
   );
 }

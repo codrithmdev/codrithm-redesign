@@ -1,7 +1,7 @@
 import { t as approvedExternalUrls } from "./site-B4eAQvM9.mjs";
 import { g as Link, v as require_jsx_runtime } from "../_libs/@tanstack/react-router+[...].mjs";
-import { t as PageShell } from "./PageShell-DLwgyuLZ.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/community-B1C61hQr.js
+import { t as PageShell } from "./PageShell-CyiN5KzD.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/community-DQh8ft7a.js
 var import_jsx_runtime = require_jsx_runtime();
 function CommunityPage() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(PageShell, {

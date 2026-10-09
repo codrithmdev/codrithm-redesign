@@ -1,9 +1,9 @@
 import { n as internalDestinations } from "./site-B4eAQvM9.mjs";
 import { g as Link, v as require_jsx_runtime } from "../_libs/@tanstack/react-router+[...].mjs";
-import { t as PageShell } from "./PageShell-DLwgyuLZ.mjs";
-import { n as services } from "./services-BSTx4X1D.mjs";
-import { r as ArrowRight } from "./icons-DQ1CEv9d.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/services-DQH5tlOa.js
+import { t as PageShell } from "./PageShell-CyiN5KzD.mjs";
+import { n as services } from "./services-DwCL1mA1.mjs";
+import { n as ArrowRight } from "./icons-d-ZqtYhg.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/services-DrtM4Hbv.js
 var import_jsx_runtime = require_jsx_runtime();
 function ServicesPage() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(PageShell, {
@@ -12,7 +12,7 @@ function ServicesPage() {
 		description: "Codrithm helps teams explore websites, applications, automation, and AI features around specific needs. Scope and feasibility are confirmed before work begins.",
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 			className: "grid gap-4 md:grid-cols-2",
-			children: services.map((service) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("article", {
+			children: services.filter((service) => service.publishable).map((service) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("article", {
 				className: "surface-card flex min-h-64 flex-col rounded-2xl p-6 sm:p-8",
 				children: [
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {

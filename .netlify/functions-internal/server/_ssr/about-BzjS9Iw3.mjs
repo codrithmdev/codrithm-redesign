@@ -1,6 +1,6 @@
 import { v as require_jsx_runtime } from "../_libs/@tanstack/react-router+[...].mjs";
-import { t as PageShell } from "./PageShell-DLwgyuLZ.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/about-Cd1rsrEZ.js
+import { t as PageShell } from "./PageShell-CyiN5KzD.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/about-BzjS9Iw3.js
 var import_jsx_runtime = require_jsx_runtime();
 function AboutPage() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(PageShell, {

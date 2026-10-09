@@ -4,18 +4,9 @@ import { Logo } from "./Logo";
 import { VIEWPORT_LOOSE } from "@/animations/tokens";
 import { useMotionPrefs } from "@/animations/useMotionPrefs";
 
-const metrics = [
-  { label: "Community", value: "600+", delta: "Growing", up: true },
-  { label: "Team members", value: "7+", delta: "Together", up: true },
-  { label: "Active builders", value: "100+", delta: "Learning", up: true },
-  { label: "Past events", value: "10+", delta: "Shared", up: true },
-];
+const stages = ["Understand", "Scope", "Build", "Review"];
 
-const imports = [
-  { name: "Hands-on learning", pct: 78 },
-  { name: "Peer mentorship", pct: 54 },
-  { name: "Community projects", pct: 36 },
-];
+const workflow = ["Requirements", "Interface", "Integration"];
 
 const bars = [42, 24, 16, 26, 25, 28, 11, 9, 33, 18, 14, 26, 29, 17];
 
@@ -51,10 +42,10 @@ export function DashboardMockup() {
         <Logo compact className="text-sm" />
         <div className="hidden items-center gap-5 text-xs text-muted-foreground md:flex">
           {[
-            { icon: BarChart3, label: "Overview" },
-            { icon: Package, label: "Projects" },
-            { icon: Users, label: "Members" },
-            { icon: Megaphone, label: "Events" },
+            { icon: BarChart3, label: "Brief" },
+            { icon: Package, label: "Build" },
+            { icon: Users, label: "Review" },
+            { icon: Megaphone, label: "Share" },
             { icon: Settings, label: "Settings" },
           ].map(({ icon: Icon, label }, i) => (
             <span
@@ -77,29 +68,25 @@ export function DashboardMockup() {
 
       <div className="p-4 sm:p-6">
         <motion.div variants={item} className="mb-5 flex items-center justify-between">
-          <h3 className="font-display text-lg sm:text-xl">Codrithm Community</h3>
+          <h3 className="font-display text-lg sm:text-xl">Project workspace</h3>
           <span className="rounded-full border border-border bg-elevated px-3 py-1.5 text-xs text-muted-foreground">
-            Join the community
+            Illustrative view
           </span>
         </motion.div>
 
         <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-          {metrics.map((m) => (
+          {stages.map((stage, index) => (
             <motion.div
-              key={m.label}
+              key={stage}
               variants={item}
               className="rounded-xl border border-border bg-elevated/50 p-3"
             >
               <div className="flex items-center justify-between gap-2">
-                <span className="text-[10px] tracking-widest text-muted-foreground uppercase">
-                  {m.label}
-                </span>
-                <span className={m.up ? "text-[10px] text-success" : "text-[10px] text-destructive"}>
-                  {m.up ? "↗" : "↘"} {m.delta}
-                </span>
+                <span className="text-[10px] tracking-widest text-muted-foreground uppercase">Step {index + 1}</span>
+                <span className="text-[10px] text-success">In progress</span>
               </div>
               <div className="mt-2 flex items-end justify-between gap-2">
-                <span className="font-display text-base sm:text-lg">{m.value}</span>
+                <span className="font-display text-base sm:text-lg">{stage}</span>
                 <svg viewBox="0 0 98 28" className="h-6 w-16 overflow-visible">
                   <motion.path
                     d={sparkline}
@@ -124,21 +111,21 @@ export function DashboardMockup() {
 
         <div className="mt-4 grid gap-4 lg:grid-cols-2">
           <motion.div variants={item} className="rounded-xl border border-border bg-elevated/40 p-4">
-            <p className="text-sm">Learning pathways in motion</p>
+            <p className="text-sm">A clear path from idea to handover</p>
             <p className="mt-1 text-xs text-muted-foreground">
-              Skills grow faster when learning is practical and shared.
+              A decorative workflow illustration, not a live product dashboard.
             </p>
             <div className="mt-4 space-y-4">
-              {imports.map((row, i) => (
-                <div key={row.name} className="space-y-2">
+              {workflow.map((name, i) => (
+                <div key={name} className="space-y-2">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="text-foreground">{row.name}</span>
-                    <span className="text-muted-foreground">In progress</span>
+                    <span className="text-foreground">{name}</span>
+                    <span className="text-muted-foreground">Planned</span>
                   </div>
                   <div className="h-1 overflow-hidden rounded-full bg-border">
                     <motion.div
                       className="h-full origin-left rounded-full bg-[image:var(--gradient-solar)]"
-                      style={{ width: `${row.pct}%` }}
+                      style={{ width: `${[72, 54, 38][i]}%` }}
                       variants={{
                         hidden: { scaleX: reduced ? 1 : 0 },
                         visible: {
@@ -157,7 +144,7 @@ export function DashboardMockup() {
           </motion.div>
 
           <motion.div variants={item} className="rounded-xl border border-border bg-elevated/40 p-4">
-            <p className="text-sm">Community activity</p>
+            <p className="text-sm">Workflow signals</p>
             <div className="mt-6 flex h-36 items-end gap-1.5">
               {bars.map((h, i) => (
                 <motion.div
@@ -182,9 +169,9 @@ export function DashboardMockup() {
               ))}
             </div>
             <div className="mt-3 flex items-center justify-between border-t border-border pt-3 text-[10px] text-muted-foreground">
-              <span>Recent months</span>
+              <span>Illustrative</span>
               <span className="flex items-center gap-1">
-                This week <ChevronDown className="size-3" />
+                Project view <ChevronDown className="size-3" />
               </span>
             </div>
           </motion.div>

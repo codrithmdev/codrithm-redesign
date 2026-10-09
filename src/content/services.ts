@@ -12,43 +12,68 @@ export type Service = {
   title: string;
   shortDescription: string;
   capabilities: readonly string[];
+  publishable: boolean;
 };
 
 export const services: readonly Service[] = [
   {
     slug: "ai-automation",
-    title: "AI Automation & Intelligent Workflows",
+    title: "AI Automation",
     shortDescription:
-      "Connect repetitive tasks and tools into workflows your team can understand and manage.",
-    capabilities: ["Workflow mapping", "Tool and API integrations", "AI-assisted processing"],
+      "Connect tools, automate repetitive tasks, and reduce manual work across everyday business processes.",
+    capabilities: [
+      "Workflow automation",
+      "AI-assisted processes",
+      "n8n integrations",
+      "CRM and API connections",
+      "Document and lead-processing workflows",
+    ],
+    publishable: true,
   },
   {
     slug: "software-development",
-    title: "Custom Software Development",
+    title: "Software Development",
     shortDescription:
-      "Custom web applications, internal tools, dashboards, and APIs built around specific requirements.",
-    capabilities: ["Web applications", "Internal tools", "Dashboards and integrations"],
+      "Custom applications, dashboards, and internal tools built for specific business requirements.",
+    capabilities: [
+      "Web applications",
+      "Backend development",
+      "APIs and integrations",
+      "Internal business tools",
+      "Custom dashboards",
+    ],
+    publishable: true,
   },
   {
     slug: "ai-ml",
-    title: "AI & Machine Learning Solutions",
+    title: "AI & Machine Learning",
     shortDescription:
-      "Practical AI features and data-driven applications, with feasibility reviewed for each use case.",
+      "Practical AI features and machine learning applications for problems that benefit from data-driven systems.",
     capabilities: [
-      "AI feature discovery",
-      "Document and text processing",
-      "Data-driven applications",
+      "AI feature integration",
+      "Data processing",
+      "Machine learning prototypes",
+      "Predictive applications",
+      "NLP-based functionality",
     ],
+    publishable: true,
   },
   {
     slug: "websites-wordpress",
-    title: "Website Development & WordPress",
+    title: "Website & WordPress Development",
     shortDescription:
-      "Responsive business websites and WordPress builds that are clear, maintainable, and easy to update.",
-    capabilities: ["Business websites", "WordPress development", "Performance and maintenance"],
+      "Business websites, WordPress builds, and landing pages that are straightforward to use and maintain.",
+    capabilities: [
+      "WordPress development",
+      "Business websites",
+      "Landing pages",
+      "Website redesign",
+      "Maintenance and improvements",
+    ],
+    publishable: true,
   },
 ];
 
 export function getService(slug: string): Service | undefined {
-  return services.find((service) => service.slug === slug);
+  return services.find((service) => service.publishable && service.slug === slug);
 }

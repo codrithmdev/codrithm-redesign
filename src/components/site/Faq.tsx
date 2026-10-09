@@ -6,20 +6,28 @@ import { Stagger, StaggerItem } from "@/animations/stagger";
 
 const items = [
   {
-    q: "Who can join Codrithm?",
-    a: "Students and emerging developers who want to learn practical skills, meet thoughtful peers, and contribute to collaborative projects are welcome.",
+    q: "What types of projects does Codrithm work on?",
+    a: "We focus on AI automation, custom software, AI and machine learning applications, and business websites, including WordPress.",
   },
   {
-    q: "Do I need to be an experienced developer?",
-    a: "No. Codrithm is built for learners at different stages. Curiosity, consistency, and respect for others matter more than a perfect starting point.",
+    q: "Can you improve an existing website or application?",
+    a: "Yes. Depending on the project, we can review an existing system and discuss improvements, integrations, or additional features.",
   },
   {
-    q: "What happens in a Codrithm session?",
-    a: "Sessions can include practical workshops, project reviews, peer learning, mentorship, and conversations with people working in technology.",
+    q: "Do you work with WordPress?",
+    a: "Yes. WordPress development and improvements are part of our website services.",
   },
   {
-    q: "Can organisations collaborate with Codrithm?",
-    a: "Yes. We welcome meaningful partnerships that create real learning opportunities and help emerging developers gain practical experience.",
+    q: "How is project pricing decided?",
+    a: "Pricing depends on the scope, complexity, integrations, and delivery requirements. We discuss these before providing an estimate.",
+  },
+  {
+    q: "Can you automate our existing business processes?",
+    a: "We can review your current workflow and identify which steps may be suitable for automation.",
+  },
+  {
+    q: "Is Codrithm also a technology community?",
+    a: "Yes. Alongside our development work, Codrithm runs a community focused on learning, collaboration, and professional growth.",
   },
 ];
 
@@ -29,8 +37,8 @@ export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="contact" className="mx-auto w-full max-w-3xl px-5 py-24 lg:px-8 lg:py-32">
-      <SectionHeading title="Questions, answered" />
+    <section className="mx-auto w-full max-w-3xl px-5 py-24 lg:px-8 lg:py-32">
+      <SectionHeading title="Questions, answered" subtitle="Practical details before you start a project." />
 
       <Stagger className="mt-14 space-y-3" stagger={0.06}>
         {items.map((item, i) => {

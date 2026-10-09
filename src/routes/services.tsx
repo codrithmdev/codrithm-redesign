@@ -26,7 +26,7 @@ function ServicesPage() {
       description="Codrithm helps teams explore websites, applications, automation, and AI features around specific needs. Scope and feasibility are confirmed before work begins."
     >
       <div className="grid gap-4 md:grid-cols-2">
-        {services.map((service) => (
+        {services.filter((service) => service.publishable).map((service) => (
           <article
             key={service.slug}
             className="surface-card flex min-h-64 flex-col rounded-2xl p-6 sm:p-8"

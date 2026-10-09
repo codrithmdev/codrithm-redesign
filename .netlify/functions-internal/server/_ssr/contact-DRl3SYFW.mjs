@@ -1,7 +1,7 @@
 import { v as require_jsx_runtime } from "../_libs/@tanstack/react-router+[...].mjs";
-import { t as PageShell } from "./PageShell-DLwgyuLZ.mjs";
-import { t as Route } from "./contact-B97vQbIX.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/contact-v5Ae5JpF.js
+import { t as PageShell } from "./PageShell-CyiN5KzD.mjs";
+import { t as Route } from "./contact-A_DKbyFF.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/contact-DRl3SYFW.js
 var import_jsx_runtime = require_jsx_runtime();
 function ContactPage() {
 	const { type, service } = Route.useSearch();

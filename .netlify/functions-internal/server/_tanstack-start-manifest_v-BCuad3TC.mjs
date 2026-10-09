@@ -1,4 +1,4 @@
-//#region node_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-DtGOBwcP.js
+//#region node_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-BCuad3TC.js
 var tsrStartManifest = () => ({ routes: {
 	__root__: {
 		filePath: "D:/Codrithm/newsite/src/routes/__root.tsx",
@@ -13,64 +13,68 @@ var tsrStartManifest = () => ({ routes: {
 			"/projects/"
 		],
 		preloads: [
-			"/assets/index-BLazlag_.js",
-			"/assets/reveal-DBhCUJfT.js",
-			"/assets/link-B5C2Skj_.js",
-			"/assets/_slug-CmBwzgqa.js",
-			"/assets/preload-helper-Ru0mgrE9.js"
+			"/assets/index-BZTCuoiM.js",
+			"/assets/reveal-B4SvoEzb.js",
+			"/assets/link-444LRSEb.js",
+			"/assets/_slug-CGCwu58q.js",
+			"/assets/preload-helper-BeJUMNkr.js"
 		],
 		scripts: [{ attrs: {
 			type: "module",
 			async: !0,
-			src: "/assets/index-BLazlag_.js"
+			src: "/assets/index-BZTCuoiM.js"
 		} }]
 	},
 	"/": {
 		filePath: "D:/Codrithm/newsite/src/routes/index.tsx",
 		children: void 0,
-		preloads: ["/assets/routes-B3qOpv0q.js", "/assets/icons-DhXv2vTD.js"]
+		preloads: [
+			"/assets/routes-ka5zCWvn.js",
+			"/assets/projects-Cvl-5Ip5.js",
+			"/assets/icons-DY4Iun99.js"
+		]
 	},
 	"/about": {
 		filePath: "D:/Codrithm/newsite/src/routes/about.tsx",
 		children: void 0,
-		preloads: ["/assets/about-BhPjVtJw.js", "/assets/PageShell-UYWU0oXq.js"]
+		preloads: ["/assets/about-wgqqKti_.js", "/assets/PageShell-C3TNDKZU.js"]
 	},
 	"/community": {
 		filePath: "D:/Codrithm/newsite/src/routes/community.tsx",
 		children: void 0,
-		preloads: ["/assets/community-DPSJyPc6.js", "/assets/PageShell-UYWU0oXq.js"]
+		preloads: ["/assets/community-ST5io_pJ.js", "/assets/PageShell-C3TNDKZU.js"]
 	},
 	"/contact": {
 		filePath: "D:/Codrithm/newsite/src/routes/contact.tsx",
 		children: void 0,
-		preloads: ["/assets/contact-CywjAGkJ.js", "/assets/PageShell-UYWU0oXq.js"]
+		preloads: ["/assets/contact-DsHebKSm.js", "/assets/PageShell-C3TNDKZU.js"]
 	},
 	"/privacy": {
 		filePath: "D:/Codrithm/newsite/src/routes/privacy.tsx",
 		children: void 0,
-		preloads: ["/assets/privacy-DyfUhbZ-.js", "/assets/PageShell-UYWU0oXq.js"]
+		preloads: ["/assets/privacy-4tLCTVOw.js", "/assets/PageShell-C3TNDKZU.js"]
 	},
 	"/services": {
 		filePath: "D:/Codrithm/newsite/src/routes/services.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/services-B-qaGXLH.js",
-			"/assets/PageShell-UYWU0oXq.js",
-			"/assets/icons-DhXv2vTD.js"
+			"/assets/services-CXGt98QY.js",
+			"/assets/PageShell-C3TNDKZU.js",
+			"/assets/icons-DY4Iun99.js"
 		]
 	},
 	"/projects/$slug": {
 		filePath: "D:/Codrithm/newsite/src/routes/projects/$slug.tsx",
 		children: void 0,
-		preloads: ["/assets/_slug-CgbiIOy5.js", "/assets/PageShell-UYWU0oXq.js"]
+		preloads: ["/assets/_slug-D6-p5417.js", "/assets/PageShell-C3TNDKZU.js"]
 	},
 	"/projects/": {
 		filePath: "D:/Codrithm/newsite/src/routes/projects/index.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/projects-B3L7OuvJ.js",
+			"/assets/projects-BViJjAyF.js",
 			"/assets/projects-Cvl-5Ip5.js",
-			"/assets/PageShell-UYWU0oXq.js"
+			"/assets/PageShell-C3TNDKZU.js"
 		]
 	}
 } });

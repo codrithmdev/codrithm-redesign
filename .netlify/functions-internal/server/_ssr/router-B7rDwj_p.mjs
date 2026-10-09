@@ -1,15 +1,15 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { n as internalDestinations, r as navigationItems } from "./site-B4eAQvM9.mjs";
 import { I as require_react, _ as useRouter, c as HeadContent, d as createRouter, f as Outlet, g as Link, h as createRootRouteWithContext, l as useRouterState, m as createFileRoute, p as lazyRouteComponent, s as Scripts, v as require_jsx_runtime } from "../_libs/@tanstack/react-router+[...].mjs";
-import { t as Route$7 } from "../_slug-CMAkt6Qb.mjs";
-import { c as useMotionValueEvent, l as motion, s as useScroll, u as AnimatePresence } from "../_libs/framer-motion+[...].mjs";
-import { h as tNormal, o as cn, t as Reveal, u as mobileMenuItem } from "./reveal-DJJ7iISp.mjs";
-import { t as Route$8 } from "./contact-B97vQbIX.mjs";
-import { n as Stagger, r as StaggerItem, t as Logo } from "./stagger-DYgV05BB.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-ZuMC4vog.js
+import { t as Route$7 } from "../_slug-15lpU3qi.mjs";
+import { a as useScroll, c as AnimatePresence, o as useMotionValueEvent, s as motion } from "../_libs/framer-motion+[...].mjs";
+import { l as mobileMenuItem, m as tNormal, o as cn, t as Reveal } from "./reveal-BeV1ECYS.mjs";
+import { t as Route$8 } from "./contact-A_DKbyFF.mjs";
+import { n as Stagger, r as StaggerItem, t as Logo } from "./stagger-Ds8zeSOp.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/router-B7rDwj_p.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
-var styles_default = "/assets/styles-E5qBeWYF.css";
+var styles_default = "/assets/styles-DdhOQn2s.css";
 var columns = [{
 	title: "Explore",
 	links: navigationItems
@@ -374,21 +374,21 @@ function RootComponent() {
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Footer, {})
 	] });
 }
-var $$splitComponentImporter$5 = () => import("./routes-JlRNyxeF.mjs");
+var $$splitComponentImporter$5 = () => import("./routes-BQS8o2Xl.mjs");
 var Route$5 = createFileRoute("/")({
 	head: () => ({ meta: [
-		{ title: "Codrithm — Where Coders Make History" },
+		{ title: "Codrithm — Software that makes work easier" },
 		{
 			name: "description",
-			content: "Codrithm is a student-driven technology community built around ethical values, continuous learning, peer mentorship and collaborative innovation."
+			content: "Codrithm builds business websites, custom applications, and AI-powered workflows around specific problems."
 		},
 		{
 			property: "og:title",
-			content: "Codrithm — Where Coders Make History"
+			content: "Codrithm — Software that makes work easier"
 		},
 		{
 			property: "og:description",
-			content: "Practical skills, peer mentorship, and collaborative innovation for emerging developers."
+			content: "Business websites, custom applications, and AI-powered workflows from Codrithm."
 		},
 		{
 			property: "og:type",
@@ -401,7 +401,7 @@ var Route$5 = createFileRoute("/")({
 	] }),
 	component: lazyRouteComponent($$splitComponentImporter$5, "component")
 });
-var $$splitComponentImporter$4 = () => import("./about-Cd1rsrEZ.mjs");
+var $$splitComponentImporter$4 = () => import("./about-BzjS9Iw3.mjs");
 var Route$4 = createFileRoute("/about")({
 	head: () => ({ meta: [{ title: "About | Codrithm" }, {
 		name: "description",
@@ -409,7 +409,7 @@ var Route$4 = createFileRoute("/about")({
 	}] }),
 	component: lazyRouteComponent($$splitComponentImporter$4, "component")
 });
-var $$splitComponentImporter$3 = () => import("./community-B1C61hQr.mjs");
+var $$splitComponentImporter$3 = () => import("./community-DQh8ft7a.mjs");
 var Route$3 = createFileRoute("/community")({
 	head: () => ({ meta: [{ title: "Community | Codrithm" }, {
 		name: "description",
@@ -417,7 +417,7 @@ var Route$3 = createFileRoute("/community")({
 	}] }),
 	component: lazyRouteComponent($$splitComponentImporter$3, "component")
 });
-var $$splitComponentImporter$2 = () => import("./privacy-DN2XK3El.mjs");
+var $$splitComponentImporter$2 = () => import("./privacy-1VJ14OSk.mjs");
 var Route$2 = createFileRoute("/privacy")({
 	head: () => ({ meta: [{ title: "Privacy | Codrithm" }, {
 		name: "description",
@@ -425,7 +425,7 @@ var Route$2 = createFileRoute("/privacy")({
 	}] }),
 	component: lazyRouteComponent($$splitComponentImporter$2, "component")
 });
-var $$splitComponentImporter$1 = () => import("./services-DQH5tlOa.mjs");
+var $$splitComponentImporter$1 = () => import("./services-DrtM4Hbv.mjs");
 var Route$1 = createFileRoute("/services")({
 	head: () => ({ meta: [{ title: "Services | Codrithm" }, {
 		name: "description",
@@ -433,7 +433,7 @@ var Route$1 = createFileRoute("/services")({
 	}] }),
 	component: lazyRouteComponent($$splitComponentImporter$1, "component")
 });
-var $$splitComponentImporter = () => import("./projects-Bl2BqIeN.mjs");
+var $$splitComponentImporter = () => import("./projects-DLEb0U_t.mjs");
 var Route = createFileRoute("/projects/")({
 	head: () => ({ meta: [{ title: "Projects | Codrithm" }, {
 		name: "description",

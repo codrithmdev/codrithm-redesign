@@ -1,7 +1,7 @@
 import { n as projects } from "./projects-Cjfi-7DJ.mjs";
 import { v as require_jsx_runtime } from "../_libs/@tanstack/react-router+[...].mjs";
-import { t as PageShell } from "./PageShell-DLwgyuLZ.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/projects-Bl2BqIeN.js
+import { t as PageShell } from "./PageShell-CyiN5KzD.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/projects-DLEb0U_t.js
 var import_jsx_runtime = require_jsx_runtime();
 function ProjectsPage() {
 	const publishableProjects = projects.filter((project) => project.publishable);

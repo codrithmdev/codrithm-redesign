@@ -1,8 +1,8 @@
 import { n as internalDestinations } from "./_ssr/site-B4eAQvM9.mjs";
 import { g as Link, v as require_jsx_runtime } from "./_libs/@tanstack/react-router+[...].mjs";
-import { t as Route } from "./_slug-CMAkt6Qb.mjs";
-import { t as PageShell } from "./_ssr/PageShell-DLwgyuLZ.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/_slug-DV3trt5Y.js
+import { t as Route } from "./_slug-15lpU3qi.mjs";
+import { t as PageShell } from "./_ssr/PageShell-CyiN5KzD.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/_slug-D-rBu6jK.js
 var import_jsx_runtime = require_jsx_runtime();
 function ProjectDetailPage() {
 	const { project } = Route.useLoaderData();

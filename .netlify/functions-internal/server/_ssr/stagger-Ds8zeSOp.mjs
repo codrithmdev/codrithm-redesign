@@ -1,7 +1,7 @@
 import { v as require_jsx_runtime } from "../_libs/@tanstack/react-router+[...].mjs";
-import { l as motion } from "../_libs/framer-motion+[...].mjs";
-import { _ as useMotionPrefs, d as staggerChild, f as staggerChildSmall, i as VIEWPORT, n as STAGGER_NORMAL, o as cn, p as staggerParent, r as STAGGER_SMALL } from "./reveal-DJJ7iISp.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/stagger-DYgV05BB.js
+import { s as motion } from "../_libs/framer-motion+[...].mjs";
+import { d as staggerChildSmall, f as staggerParent, h as useMotionPrefs, i as VIEWPORT, n as STAGGER_NORMAL, o as cn, r as STAGGER_SMALL, u as staggerChild } from "./reveal-BeV1ECYS.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/stagger-Ds8zeSOp.js
 var import_jsx_runtime = require_jsx_runtime();
 function Logo({ className, compact = false }) {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {

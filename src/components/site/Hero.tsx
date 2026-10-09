@@ -1,8 +1,8 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { useRef } from "react";
 import sunArc from "@/assets/sun-arc.jpg";
-import { AnimatedButton } from "./AnimatedButton";
 import { DashboardMockup } from "./DashboardMockup";
 import { MouseDrift } from "@/animations/magnetic";
 import { headingLine } from "@/animations/variants";
@@ -19,7 +19,7 @@ const T = {
   visual: 0.45,
 };
 
-const lines = ["Where Coders", "Make History."];
+const lines = ["We build software", "that makes work easier."];
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -59,23 +59,23 @@ export function Hero() {
 
       <div className="mx-auto w-full max-w-7xl px-5 text-center lg:px-8">
         <motion.div {...rise(T.eyebrow)} className="flex justify-center">
-          <a
-            href="#features"
+          <Link
+            to="/community"
             className="group inline-flex items-center gap-2 rounded-full border border-border bg-elevated/60 py-1 pr-4 pl-1 text-sm backdrop-blur-sm transition-colors hover:border-primary/50"
           >
-            <span className="rounded-full bg-[image:var(--gradient-solar)] px-3 py-1 text-xs font-medium text-primary-foreground">
-              Codrithm
+            <span className="rounded-full bg-primary px-3 py-1 text-xs font-medium text-primary-foreground">
+              Community
             </span>
             <span className="text-muted-foreground transition-colors group-hover:text-foreground">
               Learn · Build · Connect
             </span>
             <ArrowRight className="size-3.5 text-muted-foreground transition-transform duration-300 ease-[var(--ease-standard)] group-hover:translate-x-1" />
-          </a>
+          </Link>
         </motion.div>
 
         <motion.h1
           className="font-display mx-auto mt-8 max-w-4xl text-[2.6rem] leading-[1.05] font-medium sm:text-6xl lg:text-7xl"
-          initial="hidden"
+          initial={false}
           animate="visible"
           variants={{ visible: { transition: { staggerChildren: 0.08, delayChildren: T.heading } } }}
         >
@@ -92,16 +92,30 @@ export function Hero() {
           {...rise(T.paragraph)}
           className="mx-auto mt-6 max-w-xl text-base text-muted-foreground sm:text-lg"
         >
-          A student-driven technology community helping emerging developers grow through practical
-          skills, peer mentorship, and collaborative innovation.
+          From business websites to custom applications and AI-powered workflows, Codrithm helps
+          turn specific problems into working software.
         </motion.p>
 
         <motion.div {...rise(T.buttons)} className="mt-9 flex flex-wrap justify-center gap-3">
-          <AnimatedButton variant="outline" size="lg">
-            Explore our work
-          </AnimatedButton>
-          <AnimatedButton size="lg">Work with us</AnimatedButton>
+          <Link
+            to="/projects"
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-border-strong bg-elevated/60 px-7 py-3.5 text-base font-medium text-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/60 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
+            Explore Our Work
+          </Link>
+          <Link
+            to="/contact"
+            search={{ type: "project" }}
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-7 py-3.5 text-base font-medium text-primary-foreground shadow-[var(--shadow-glow)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary/90 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
+            Start a Project
+            <ArrowRight className="size-4" aria-hidden />
+          </Link>
         </motion.div>
+        <motion.p {...rise(T.buttons + 0.08)} className="mx-auto mt-6 max-w-xl text-sm text-muted-foreground">
+          Beyond client work, we&apos;re building a community where students and developers learn,
+          connect, and work on practical ideas.
+        </motion.p>
       </div>
 
       {/* hero visual: masked upward reveal */}

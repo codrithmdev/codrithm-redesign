@@ -1,9 +1,9 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { I as require_react, v as require_jsx_runtime } from "../_libs/@tanstack/react-router+[...].mjs";
-import { n as clsx } from "../_libs/class-variance-authority+clsx.mjs";
+import { t as clsx } from "../_libs/clsx.mjs";
 import { t as twMerge } from "../_libs/tailwind-merge.mjs";
-import { l as motion, r as useReducedMotion } from "../_libs/framer-motion+[...].mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/reveal-DJJ7iISp.js
+import { s as motion, t as useReducedMotion } from "../_libs/framer-motion+[...].mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/reveal-BeV1ECYS.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function cn(...inputs) {
@@ -36,7 +36,7 @@ var VIEWPORT_LOOSE = {
 	amount: .1
 };
 var ease$1 = [...EASE_STANDARD];
-var easeInOut = [...EASE_IN_OUT];
+[...EASE_IN_OUT];
 var tNormal = {
 	duration: DURATION_NORMAL,
 	ease: ease$1
@@ -53,16 +53,6 @@ var tHover = {
 	duration: .28,
 	ease: ease$1
 };
-var tPress = {
-	duration: .12,
-	ease: ease$1
-};
-var floatTransition = (duration) => ({
-	duration,
-	ease: easeInOut,
-	repeat: Infinity,
-	repeatType: "mirror"
-});
 var ease = [
 	.22,
 	1,
@@ -276,4 +266,4 @@ function Reveal({ children, variant = "fadeUp", delay = 0, className, as = "div"
 	});
 }
 //#endregion
-export { useMotionPrefs as _, VIEWPORT_LOOSE as a, headingLine as c, staggerChild as d, staggerChildSmall as f, tPress as g, tNormal as h, VIEWPORT as i, headingWord as l, tHover as m, STAGGER_NORMAL as n, cn as o, staggerParent as p, STAGGER_SMALL as r, floatTransition as s, Reveal as t, mobileMenuItem as u };
+export { VIEWPORT_LOOSE as a, headingWord as c, staggerChildSmall as d, staggerParent as f, useMotionPrefs as h, VIEWPORT as i, mobileMenuItem as l, tNormal as m, STAGGER_NORMAL as n, cn as o, tHover as p, STAGGER_SMALL as r, headingLine as s, Reveal as t, staggerChild as u };
