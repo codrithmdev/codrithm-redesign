@@ -11,7 +11,7 @@ export type TeamMember = {
 // Other content categories retain their independent publication controls.
 export const teamMembers: readonly TeamMember[] = [
   {
-    name: "Muhammad Umais Adeel",
+    name: "Muhammad Umais",
     role: "Founder",
     introduction:
       "Muhammad Umais Adeel is the Founder of Codrithm, helping shape its direction and supporting its technology and community initiatives.",
