@@ -7,8 +7,12 @@ export type Project = {
   summary: string;
   kind: ProjectKind;
   status: ProjectStatus;
+  problem: string;
+  developed: string;
+  features: readonly string[];
   technologies: readonly string[];
-  image?: { src: string; alt: string };
+  roleOrTeamContribution?: string;
+  images: readonly { src: string; alt: string }[];
   approvedExternalUrl?: string;
   publishable: boolean;
   updatedAt: string;

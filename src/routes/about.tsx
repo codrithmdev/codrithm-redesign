@@ -1,6 +1,7 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { PageShell } from "@/components/site/PageShell";
+import { TeamSection } from "@/components/site/TeamSection";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -62,6 +63,7 @@ function AboutPage() {
           </Link>
         </div>
       </section>
+      <TeamSection />
     </PageShell>
   );
 }

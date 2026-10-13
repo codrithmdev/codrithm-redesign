@@ -1,7 +1,13 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { Activity, Sparkles, Users } from "lucide-react";
 import { PageShell } from "@/components/site/PageShell";
-import { communityActivities, communityCollaborations, communityEvents } from "@/content/community";
+import {
+  communityActivities,
+  communityCollaborations,
+  communityEvents,
+  type CommunityCollaboration,
+  type CommunityEvent,
+} from "@/content/community";
 import { approvedExternalUrls } from "@/content/site";
 
 const pillars = [
@@ -56,9 +62,9 @@ function CommunityPage() {
           </article>
         ))}
       </section>
-      <CommunityList title="Events and workshops" items={events} />
+      <EventList events={events} />
       <CommunityList title="Community activities" items={activities} />
-      <CommunityList title="Partnerships and collaborations" items={collaborations} />
+      <CollaborationList collaborations={collaborations} />
       <section className="surface-card mt-14 rounded-2xl p-6 sm:p-8">
         <h2 className="font-display text-2xl">Join the community</h2>
         <p className="mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">
@@ -83,6 +89,78 @@ function CommunityPage() {
         )}
       </section>
     </PageShell>
+  );
+}
+
+function EventList({ events }: { events: readonly CommunityEvent[] }) {
+  if (events.length === 0) return null;
+  return (
+    <section className="mt-14" aria-labelledby="events-heading">
+      <h2 id="events-heading" className="font-display text-2xl">
+        Events and workshops
+      </h2>
+      <div className="mt-6 grid gap-4 md:grid-cols-2">
+        {events.map((event) => (
+          <article key={event.title} className="surface-card rounded-2xl p-6">
+            <p className="text-xs font-semibold tracking-[0.16em] text-primary uppercase">
+              {event.status} · {event.date}
+            </p>
+            <h3 className="font-display mt-3 text-xl">{event.title}</h3>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">{event.description}</p>
+            {event.speaker && (
+              <p className="mt-4 text-sm text-muted-foreground">Speaker: {event.speaker}</p>
+            )}
+            {event.format && <p className="mt-1 text-sm text-muted-foreground">{event.format}</p>}
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function CollaborationList({
+  collaborations,
+}: {
+  collaborations: readonly CommunityCollaboration[];
+}) {
+  if (collaborations.length === 0) return null;
+  return (
+    <section className="mt-14" aria-labelledby="collaborations-heading">
+      <h2 id="collaborations-heading" className="font-display text-2xl">
+        Partnerships and collaborations
+      </h2>
+      <div className="mt-6 grid gap-4 md:grid-cols-2">
+        {collaborations.map((collaboration) => (
+          <article key={collaboration.name} className="surface-card rounded-2xl p-6">
+            {collaboration.logo && (
+              <img
+                src={collaboration.logo.src}
+                alt={collaboration.logo.alt}
+                className="h-10 w-auto object-contain"
+                loading="lazy"
+              />
+            )}
+            <p className="text-xs font-semibold tracking-[0.16em] text-primary uppercase">
+              {collaboration.relationship}
+            </p>
+            <h3 className="font-display mt-3 text-xl">{collaboration.name}</h3>
+            {collaboration.description && (
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                {collaboration.description}
+              </p>
+            )}
+            {collaboration.url && (
+              <a
+                href={collaboration.url}
+                className="mt-5 inline-flex text-sm font-medium text-primary hover:text-primary/80"
+              >
+                Visit organization
+              </a>
+            )}
+          </article>
+        ))}
+      </div>
+    </section>
   );
 }
 

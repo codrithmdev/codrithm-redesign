@@ -1,5 +1,6 @@
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 import { PageShell } from "@/components/site/PageShell";
+import { ProjectCaseStudy } from "@/components/site/ProjectCaseStudy";
 import { getPublishableProject } from "@/content/projects";
 import { internalDestinations } from "@/content/site";
 
@@ -21,11 +22,17 @@ function ProjectDetailPage() {
       title={project.title}
       description={project.summary}
     >
-      <div className="surface-card max-w-2xl rounded-2xl p-6 sm:p-8">
-        <p className="text-sm text-muted-foreground">Current status: {project.status}</p>
-        <p className="mt-6 text-sm leading-6 text-muted-foreground">
-          Detailed project information is published only after its supporting material is approved.
-        </p>
+      <div className="max-w-4xl">
+        <p className="mb-6 text-sm text-muted-foreground">Current status: {project.status}</p>
+        <ProjectCaseStudy project={project} />
+        {project.approvedExternalUrl && (
+          <a
+            href={project.approvedExternalUrl}
+            className="mt-8 inline-flex text-sm font-medium text-primary hover:text-primary/80"
+          >
+            Open project link
+          </a>
+        )}
         <Link
           to={internalDestinations.projects}
           className="mt-8 inline-flex text-sm font-medium text-primary hover:text-primary/80"

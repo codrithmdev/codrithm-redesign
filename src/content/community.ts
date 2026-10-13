@@ -13,6 +13,9 @@ export type CommunityEvent = CommunityActivity & {
 
 export type CommunityCollaboration = {
   name: string;
+  relationship: "community collaborator";
+  description?: string;
+  logo?: { src: string; alt: string };
   url?: string;
   publishable: boolean;
 };
@@ -54,7 +57,7 @@ export const communityEvents: readonly CommunityEvent[] = [
 ];
 
 export const communityCollaborations: readonly CommunityCollaboration[] = [
-  { name: "UMT Inter AI Club", publishable: false },
-  { name: "EMMUverse Technologies", publishable: false },
-  { name: "DeepCiphers", publishable: false },
+  { name: "UMT Inter AI Club", relationship: "community collaborator", publishable: false },
+  { name: "EMMUverse Technologies", relationship: "community collaborator", publishable: false },
+  { name: "DeepCiphers", relationship: "community collaborator", publishable: false },
 ];
