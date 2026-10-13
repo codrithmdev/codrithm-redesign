@@ -18,6 +18,19 @@ export type Project = {
   updatedAt: string;
 };
 
+export type ProjectDraft = Omit<
+  Project,
+  "status" | "technologies" | "features" | "images" | "approvedExternalUrl" | "updatedAt"
+> & {
+  status: "to-confirm";
+  technologies?: readonly string[];
+  features?: readonly string[];
+  images?: readonly { src: string; alt: string }[];
+  approvedExternalUrl?: string;
+  sourceUrls?: readonly string[];
+  approvalNotes: readonly string[];
+};
+
 // Add records only after the project details, classification, and publication
 // approval are confirmed. An empty collection is intentionally safer than
 // filler case studies on a public services website.
