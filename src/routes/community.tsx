@@ -1,12 +1,12 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { Activity, Sparkles, Users } from "lucide-react";
 import { PageShell } from "@/components/site/PageShell";
+import { CommunityEventsSection } from "@/components/site/events/CommunityEventsSection";
 import {
   communityActivities,
   communityCollaborations,
   communityEvents,
   type CommunityCollaboration,
-  type CommunityEvent,
 } from "@/content/community";
 import { approvedExternalUrls } from "@/content/site";
 
@@ -62,7 +62,7 @@ function CommunityPage() {
           </article>
         ))}
       </section>
-      <EventList events={events} />
+      <CommunityEventsSection events={events} />
       <CommunityList title="Community activities" items={activities} />
       <CollaborationList collaborations={collaborations} />
       <section className="surface-card mt-14 rounded-2xl p-6 sm:p-8">
@@ -89,32 +89,6 @@ function CommunityPage() {
         )}
       </section>
     </PageShell>
-  );
-}
-
-function EventList({ events }: { events: readonly CommunityEvent[] }) {
-  if (events.length === 0) return null;
-  return (
-    <section className="mt-14" aria-labelledby="events-heading">
-      <h2 id="events-heading" className="font-display text-2xl">
-        Events and workshops
-      </h2>
-      <div className="mt-6 grid gap-4 md:grid-cols-2">
-        {events.map((event) => (
-          <article key={event.title} className="surface-card rounded-2xl p-6">
-            <p className="text-xs font-semibold tracking-[0.16em] text-primary uppercase">
-              {event.status} · {event.date}
-            </p>
-            <h3 className="font-display mt-3 text-xl">{event.title}</h3>
-            <p className="mt-3 text-sm leading-6 text-muted-foreground">{event.description}</p>
-            {event.speaker && (
-              <p className="mt-4 text-sm text-muted-foreground">Speaker: {event.speaker}</p>
-            )}
-            {event.format && <p className="mt-1 text-sm text-muted-foreground">{event.format}</p>}
-          </article>
-        ))}
-      </div>
-    </section>
   );
 }
 
