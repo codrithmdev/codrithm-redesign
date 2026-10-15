@@ -15,7 +15,6 @@ import { Route as CommunityRouteImport } from './routes/community'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ServicesRouteImport } from './routes/services'
-import { Route as CommunityIndexRouteImport } from './routes/community/index'
 import { Route as ProjectsIndexRouteImport } from './routes/projects/index'
 import { Route as ProjectsSlugRouteImport } from './routes/projects/$slug'
 import { Route as CommunityEventsSlugRouteImport } from './routes/community/events/$slug'
@@ -50,11 +49,6 @@ const ServicesRoute = ServicesRouteImport.update({
   path: '/services',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CommunityIndexRoute = CommunityIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => CommunityRoute,
-} as any)
 const ProjectsIndexRoute = ProjectsIndexRouteImport.update({
   id: '/projects/',
   path: '/projects/',
@@ -79,18 +73,17 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRoute
   '/projects/$slug': typeof ProjectsSlugRoute
-  '/community/': typeof CommunityIndexRoute
   '/projects/': typeof ProjectsIndexRoute
   '/community/events/$slug': typeof CommunityEventsSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/community': typeof CommunityRouteWithChildren
   '/contact': typeof ContactRoute
   '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRoute
   '/projects/$slug': typeof ProjectsSlugRoute
-  '/community': typeof CommunityIndexRoute
   '/projects': typeof ProjectsIndexRoute
   '/community/events/$slug': typeof CommunityEventsSlugRoute
 }
@@ -103,7 +96,6 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRoute
   '/projects/$slug': typeof ProjectsSlugRoute
-  '/community/': typeof CommunityIndexRoute
   '/projects/': typeof ProjectsIndexRoute
   '/community/events/$slug': typeof CommunityEventsSlugRoute
 }
@@ -117,18 +109,17 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/services'
     | '/projects/$slug'
-    | '/community/'
     | '/projects/'
     | '/community/events/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/community'
     | '/contact'
     | '/privacy'
     | '/services'
     | '/projects/$slug'
-    | '/community'
     | '/projects'
     | '/community/events/$slug'
   id:
@@ -140,7 +131,6 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/services'
     | '/projects/$slug'
-    | '/community/'
     | '/projects/'
     | '/community/events/$slug'
   fileRoutesById: FileRoutesById
@@ -200,13 +190,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/community/': {
-      id: '/community/'
-      path: '/'
-      fullPath: '/community/'
-      preLoaderRoute: typeof CommunityIndexRouteImport
-      parentRoute: typeof CommunityRoute
-    }
     '/projects/': {
       id: '/projects/'
       path: '/projects'
@@ -232,12 +215,10 @@ declare module '@tanstack/react-router' {
 }
 
 interface CommunityRouteChildren {
-  CommunityIndexRoute: typeof CommunityIndexRoute
   CommunityEventsSlugRoute: typeof CommunityEventsSlugRoute
 }
 
 const CommunityRouteChildren: CommunityRouteChildren = {
-  CommunityIndexRoute: CommunityIndexRoute,
   CommunityEventsSlugRoute: CommunityEventsSlugRoute,
 }
 
