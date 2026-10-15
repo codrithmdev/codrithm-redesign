@@ -1,13 +1,9 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { Activity, Sparkles, Users } from "lucide-react";
 import { PageShell } from "@/components/site/PageShell";
+import { CommunityCollaborationsSection } from "@/components/site/community/CommunityCollaborationsSection";
 import { CommunityEventsSection } from "@/components/site/events/CommunityEventsSection";
-import {
-  communityActivities,
-  communityCollaborations,
-  communityEvents,
-  type CommunityCollaboration,
-} from "@/content/community";
+import { communityActivities, communityCollaborations, communityEvents } from "@/content/community";
 import { approvedExternalUrls } from "@/content/site";
 
 const pillars = [
@@ -64,8 +60,8 @@ function CommunityPage() {
         ))}
       </section>
       <CommunityEventsSection events={events} />
+      <CommunityCollaborationsSection collaborations={collaborations} />
       <CommunityList title="Community activities" items={activities} />
-      <CollaborationList collaborations={collaborations} />
       <section className="surface-card mt-14 rounded-2xl p-6 sm:p-8">
         <h2 className="font-display text-2xl">Join the community</h2>
         <p className="mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">
@@ -90,53 +86,6 @@ function CommunityPage() {
         )}
       </section>
     </PageShell>
-  );
-}
-
-function CollaborationList({
-  collaborations,
-}: {
-  collaborations: readonly CommunityCollaboration[];
-}) {
-  if (collaborations.length === 0) return null;
-
-  return (
-    <section className="mt-14" aria-labelledby="collaborations-heading">
-      <h2 id="collaborations-heading" className="font-display text-2xl">
-        Partnerships and collaborations
-      </h2>
-      <div className="mt-6 grid gap-4 md:grid-cols-2">
-        {collaborations.map((collaboration) => (
-          <article key={collaboration.name} className="surface-card rounded-2xl p-6">
-            {collaboration.logo && (
-              <img
-                src={collaboration.logo.src}
-                alt={collaboration.logo.alt}
-                className="h-10 w-auto object-contain"
-                loading="lazy"
-              />
-            )}
-            <p className="text-xs font-semibold tracking-[0.16em] text-primary uppercase">
-              {collaboration.relationship}
-            </p>
-            <h3 className="font-display mt-3 text-xl">{collaboration.name}</h3>
-            {collaboration.description && (
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                {collaboration.description}
-              </p>
-            )}
-            {collaboration.url && (
-              <a
-                href={collaboration.url}
-                className="mt-5 inline-flex text-sm font-medium text-primary hover:text-primary/80"
-              >
-                Visit organization
-              </a>
-            )}
-          </article>
-        ))}
-      </div>
-    </section>
   );
 }
 

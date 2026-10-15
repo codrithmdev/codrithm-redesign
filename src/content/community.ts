@@ -26,8 +26,9 @@ export type CommunityEvent = CommunityActivity & {
 export type CommunityCollaboration = {
   name: string;
   relationship: "community collaborator";
+  relationshipLabel?: string;
   description?: string;
-  logo?: { src: string; alt: string };
+  logo?: { src: string; alt: string; width: number; height: number };
   url?: string;
   sourceUrls?: readonly string[];
   publishable: boolean;
@@ -159,7 +160,56 @@ export const communityEvents: readonly CommunityEvent[] = [
     publishable: true,
   },
 ];
-export const communityCollaborations: readonly CommunityCollaboration[] = [];
+export const communityCollaborations: readonly CommunityCollaboration[] = [
+  {
+    name: "UMT Inter AI Club",
+    relationship: "community collaborator",
+    relationshipLabel: "University / community collaboration",
+    description:
+      "Codrithm and UMT Inter AI Club established a collaboration to support technical learning, student engagement, and opportunities for knowledge sharing between their communities.",
+    logo: {
+      src: "/images/collaborators/umt-inter-ai-club.webp",
+      alt: "UMT Inter AI Club logo",
+      width: 1254,
+      height: 1254,
+    },
+    url: "https://www.linkedin.com/company/umt-inter-ai-club/",
+    sourceUrls: ["https://www.linkedin.com/company/umt-inter-ai-club/"],
+    publishable: true,
+  },
+  {
+    name: "EMMUverse Technologies",
+    relationship: "community collaborator",
+    relationshipLabel: "Education / technology collaboration",
+    description:
+      "Codrithm collaborates with EMMUverse Technologies, an organization focused on connecting academic learning with practical industry skills. The collaboration supports knowledge sharing, professional development, and learning opportunities for the technology community.",
+    logo: {
+      src: "/images/collaborators/emmuverse-technologies.webp",
+      alt: "EMMUverse Technologies logo",
+      width: 1254,
+      height: 1254,
+    },
+    url: "https://www.linkedin.com/company/emmuverse-technologies-by-eman-fatima",
+    sourceUrls: ["https://www.linkedin.com/company/emmuverse-technologies-by-eman-fatima"],
+    publishable: true,
+  },
+  {
+    name: "DeepCiphers",
+    relationship: "community collaborator",
+    relationshipLabel: "Technology / community collaboration",
+    description:
+      "Codrithm collaborates with DeepCiphers, a software development company working on web, mobile, and custom software solutions. The collaboration brings together communities and technical expertise to support learning, knowledge sharing, and professional connections.",
+    logo: {
+      src: "/images/collaborators/deepciphers.webp",
+      alt: "DeepCiphers logo",
+      width: 4168,
+      height: 4168,
+    },
+    url: "https://www.linkedin.com/company/deepcipherstech",
+    sourceUrls: ["https://www.linkedin.com/company/deepcipherstech"],
+    publishable: true,
+  },
+];
 
 export function getPublishableCommunityEvent(slug: string) {
   return communityEvents.find((event) => event.publishable && event.slug === slug);
