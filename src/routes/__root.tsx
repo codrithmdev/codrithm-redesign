@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
   Link,
@@ -5,12 +6,11 @@ import {
   useRouter,
   HeadContent,
   Scripts,
+  type ErrorComponentProps,
 } from "@tanstack/react-router";
-import { type ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
-import { Footer } from "@/components/site/Footer";
-import { Navbar } from "@/components/site/Navbar";
 
 function NotFoundComponent() {
   return (
@@ -34,10 +34,9 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
   const router = useRouter();
-
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
@@ -69,19 +68,11 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
-export const Route = createRootRouteWithContext<Record<string, never>>()({
+export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Codrithm — Software, automation, and a community that builds" },
-      {
-        name: "description",
-        content:
-          "Codrithm builds practical software, automation, and websites while supporting a technology community that learns and builds together.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       {
@@ -92,16 +83,10 @@ export const Route = createRootRouteWithContext<Record<string, never>>()({
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400;500&display=swap",
       },
-      {
-        rel: "icon",
-        href: "/codrithm-favicon.png?v=2",
-        type: "image/png",
-        sizes: "180x180",
-      },
-      { rel: "shortcut icon", href: "/codrithm-favicon.png?v=2", type: "image/png" },
-      { rel: "apple-touch-icon", href: "/codrithm-favicon.png?v=2", sizes: "180x180" },
+      { rel: "icon", href: "/favicon.png", type: "image/png" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png", sizes: "180x180" },
     ],
   }),
   shellComponent: RootShell,
@@ -115,14 +100,14 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){var d=document.documentElement;if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.classList.add('hero-pending');setTimeout(function(){d.classList.remove('hero-pending')},4000)})()",
+          }}
+        />
       </head>
       <body>
-        <a
-          href="#main-content"
-          className="fixed top-4 left-4 z-[100] -translate-y-20 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-[var(--shadow-glow)] transition-transform focus:translate-y-0"
-        >
-          Skip to content
-        </a>
         {children}
         <Scripts />
       </body>
@@ -131,13 +116,12 @@ function RootShell({ children }: { children: ReactNode }) {
 }
 
 function RootComponent() {
+  const { queryClient } = Route.useRouteContext();
+
   return (
-    <>
-      <Navbar />
-      <main id="main-content" tabIndex={-1}>
-        <Outlet />
-      </main>
-      <Footer />
-    </>
+    <QueryClientProvider client={queryClient}>
+      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+      <Outlet />
+    </QueryClientProvider>
   );
 }

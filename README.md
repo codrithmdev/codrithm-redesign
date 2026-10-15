@@ -1,29 +1,43 @@
-# Codrithm website concept
+# Codrithm
 
-An independent React/TanStack website concept for Codrithm. It is not connected
-to an external site builder and is not the current live site.
+Codrithm's official website for technology and creative services, with a dedicated community experience.
 
-## Development
+## Stack
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+- React, TypeScript, Vite, TanStack Start and TanStack Router
+- Tailwind CSS v4, GSAP, ScrollTrigger and Lenis
+- Nitro SSR configured for the Cloudflare module preset
+- Vitest and Testing Library
+
+## Local development
+
+Use npm exclusively.
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+npm install
 npm run dev
 ```
 
-## Built with
+Useful commands:
 
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
+```sh
+npm run build
+npm test
+npm run lint
+npm run preview
+```
 
-## Project documentation
+## Project structure
 
-- [PRD and technical requirements](docs/PRD-AND-TECHNICAL-REQUIREMENTS.md)
-- [App flow](docs/APP-FLOW.md)
-- [Design brief](docs/DESIGN-BRIEF.md)
-- [Implementation plan](docs/IMPLEMENTATION-PLAN.md)
+- `src/routes/` — TanStack file-based routes
+- `src/components/codrithm/` — shared site sections, navigation, motion and page UI
+- `src/components/ui/` — reusable UI primitives
+- `src/assets/` — bundled editorial imagery
+- `public/brand/` — Codrithm and collaborator branding assets
+- `team/` — local team portraits served at `/team/*`
+
+## Configuration and deployment
+
+There are no required application environment variables at present. The contact form validates input in the browser but deliberately does not send or store enquiries.
+
+Production builds target Nitro's `cloudflare-module` preset. Deployment has not been configured; choose a host and verify its Cloudflare/Nitro compatibility before publishing.

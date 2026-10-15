@@ -1,193 +1,39 @@
-import { Link, createFileRoute } from "@tanstack/react-router";
-import { Activity, Sparkles, Users } from "lucide-react";
-import { PageShell } from "@/components/site/PageShell";
-import {
-  communityActivities,
-  communityCollaborations,
-  communityEvents,
-  type CommunityCollaboration,
-  type CommunityEvent,
-} from "@/content/community";
-import { approvedExternalUrls } from "@/content/site";
+import { createFileRoute } from "@tanstack/react-router";
+import { useSiteMotion } from "@/components/codrithm/motion";
+import { Collabs, Events, Footer, Nav, Spark } from "@/components/codrithm/sections";
+import { CommunityActivities, CommunityCTA, CommunityHero } from "@/components/codrithm/community";
 
-const pillars = [
-  {
-    title: "Learn",
-    description:
-      "Practical sessions, workshops, and knowledge sharing for people developing technology skills.",
-    icon: Sparkles,
-  },
-  {
-    title: "Build",
-    description: "Projects, experimentation, and collaborative learning around useful ideas.",
-    icon: Activity,
-  },
-  {
-    title: "Connect",
-    description: "Ways to meet peers, mentors, and professionals with shared interests.",
-    icon: Users,
-  },
-];
+const DESC =
+  "Join the Codrithm Community: hands-on workshops, events, projects, career development, collaborations and Codrithm Spark.";
 
 export const Route = createFileRoute("/community")({
   head: () => ({
     meta: [
-      { title: "Community | Codrithm" },
-      {
-        name: "description",
-        content:
-          "Codrithm's technology community for practical learning, collaboration, and connection.",
-      },
+      { title: "Community — Codrithm" },
+      { name: "description", content: DESC },
+      { property: "og:title", content: "Community — Codrithm" },
+      { property: "og:description", content: DESC },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/community" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: "/community" }],
   }),
-  component: CommunityPage,
+  component: Page,
 });
 
-function CommunityPage() {
-  const activities = communityActivities.filter((item) => item.publishable);
-  const events = communityEvents.filter((item) => item.publishable);
-  const collaborations = communityCollaborations.filter((item) => item.publishable);
+function Page() {
+  useSiteMotion();
   return (
-    <PageShell
-      eyebrow="Community"
-      title="A place to learn, build, and connect."
-      description="Alongside client work, Codrithm brings students, developers, and industry professionals together through practical learning and collaboration."
-    >
-      <section className="grid gap-4 md:grid-cols-3" aria-label="Community themes">
-        {pillars.map(({ title, description, icon: Icon }) => (
-          <article key={title} className="surface-card rounded-2xl p-6 sm:p-8">
-            <Icon className="size-5 text-primary" aria-hidden />
-            <h2 className="font-display mt-6 text-2xl">{title}</h2>
-            <p className="mt-3 text-sm leading-6 text-muted-foreground">{description}</p>
-          </article>
-        ))}
-      </section>
-      <EventList events={events} />
-      <CommunityList title="Community activities" items={activities} />
-      <CollaborationList collaborations={collaborations} />
-      <section className="surface-card mt-14 rounded-2xl p-6 sm:p-8">
-        <h2 className="font-display text-2xl">Join the community</h2>
-        <p className="mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">
-          A verified joining destination has not yet been configured. You can contact Codrithm to
-          ask about community opportunities.
-        </p>
-        {approvedExternalUrls.communityJoin ? (
-          <a
-            href={approvedExternalUrls.communityJoin}
-            className="mt-7 inline-flex rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
-          >
-            Join Community
-          </a>
-        ) : (
-          <Link
-            to="/contact"
-            search={{ type: "general" }}
-            className="mt-7 inline-flex rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
-          >
-            Ask about the community
-          </Link>
-        )}
-      </section>
-    </PageShell>
-  );
-}
-
-function EventList({ events }: { events: readonly CommunityEvent[] }) {
-  if (events.length === 0) return null;
-  return (
-    <section className="mt-14" aria-labelledby="events-heading">
-      <h2 id="events-heading" className="font-display text-2xl">
-        Events and workshops
-      </h2>
-      <div className="mt-6 grid gap-4 md:grid-cols-2">
-        {events.map((event) => (
-          <article key={event.title} className="surface-card rounded-2xl p-6">
-            <p className="text-xs font-semibold tracking-[0.16em] text-primary uppercase">
-              {event.status} · {event.date}
-            </p>
-            <h3 className="font-display mt-3 text-xl">{event.title}</h3>
-            <p className="mt-3 text-sm leading-6 text-muted-foreground">{event.description}</p>
-            {event.speaker && (
-              <p className="mt-4 text-sm text-muted-foreground">Speaker: {event.speaker}</p>
-            )}
-            {event.format && <p className="mt-1 text-sm text-muted-foreground">{event.format}</p>}
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function CollaborationList({
-  collaborations,
-}: {
-  collaborations: readonly CommunityCollaboration[];
-}) {
-  if (collaborations.length === 0) return null;
-  return (
-    <section className="mt-14" aria-labelledby="collaborations-heading">
-      <h2 id="collaborations-heading" className="font-display text-2xl">
-        Partnerships and collaborations
-      </h2>
-      <div className="mt-6 grid gap-4 md:grid-cols-2">
-        {collaborations.map((collaboration) => (
-          <article key={collaboration.name} className="surface-card rounded-2xl p-6">
-            {collaboration.logo && (
-              <img
-                src={collaboration.logo.src}
-                alt={collaboration.logo.alt}
-                className="h-10 w-auto object-contain"
-                loading="lazy"
-              />
-            )}
-            <p className="text-xs font-semibold tracking-[0.16em] text-primary uppercase">
-              {collaboration.relationship}
-            </p>
-            <h3 className="font-display mt-3 text-xl">{collaboration.name}</h3>
-            {collaboration.description && (
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                {collaboration.description}
-              </p>
-            )}
-            {collaboration.url && (
-              <a
-                href={collaboration.url}
-                className="mt-5 inline-flex text-sm font-medium text-primary hover:text-primary/80"
-              >
-                Visit organization
-              </a>
-            )}
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function CommunityList({
-  title,
-  items,
-}: {
-  title: string;
-  items: readonly { title?: string; name?: string; description?: string }[];
-}) {
-  if (items.length === 0) return null;
-  const id = title.replaceAll(" ", "-").toLowerCase();
-  return (
-    <section className="mt-14" aria-labelledby={id}>
-      <h2 id={id} className="font-display text-2xl">
-        {title}
-      </h2>
-      <div className="mt-6 grid gap-4 md:grid-cols-2">
-        {items.map((item) => (
-          <article key={item.title ?? item.name} className="surface-card rounded-2xl p-6">
-            <h3 className="font-display text-xl">{item.title ?? item.name}</h3>
-            {item.description && (
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">{item.description}</p>
-            )}
-          </article>
-        ))}
-      </div>
-    </section>
+    <main>
+      <Nav />
+      <CommunityHero />
+      <CommunityActivities />
+      <Events />
+      <Spark />
+      <Collabs />
+      <CommunityCTA />
+      <Footer showCTA={false} />
+    </main>
   );
 }
