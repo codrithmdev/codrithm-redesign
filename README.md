@@ -36,8 +36,10 @@ npm run preview
 - `public/brand/` — Codrithm and collaborator branding assets
 - `team/` — local team portraits served at `/team/*`
 
-## Configuration and deployment
+## Static deployment
 
 There are no required application environment variables at present. The contact form validates input in the browser but deliberately does not send or store enquiries.
 
-Production builds target Nitro's `cloudflare-module` preset. Deployment has not been configured; choose a host and verify its Cloudflare/Nitro compatibility before publishing.
+`npm run build` prerenders every approved public route into `dist/client`. Upload the contents of that directory to a static host such as Spaceship Essential. It includes a host-compatible `404.html` and `.htaccess` error-document rule for unknown URLs.
+
+The build fails if a required route cannot be prerendered. Do not upload `dist/server`, source files, `node_modules`, or `.git`.

@@ -54,22 +54,26 @@ export function useSiteMotion() {
           document.documentElement.classList.remove("hero-pending");
           heroLines.forEach((line, i) => {
             const chars = line.querySelectorAll("[data-hero-char]");
-            tl.from(
-              chars,
-              { y: 55, opacity: 0, duration: 0.75, stagger: 0.028, ease: "power3.out" },
-              i === 0 ? 0 : "-=0.45",
-            );
+            if (chars.length) {
+              tl.from(
+                chars,
+                { y: 55, opacity: 0, duration: 0.75, stagger: 0.028, ease: "power3.out" },
+                i === 0 ? 0 : "-=0.45",
+              );
+            }
           });
-          tl.from(
-            "[data-hero-after]",
-            { y: 30, opacity: 0, duration: 0.8, ease: "power3.out" },
-            "-=0.5",
-          );
-          tl.from(
-            "[data-hero-cta] > *",
-            { y: 24, opacity: 0, duration: 0.7, stagger: 0.1, ease: "power3.out" },
-            "-=0.6",
-          );
+          const heroAfter = document.querySelectorAll<HTMLElement>("[data-hero-after]");
+          if (heroAfter.length) {
+            tl.from(heroAfter, { y: 30, opacity: 0, duration: 0.8, ease: "power3.out" }, "-=0.5");
+          }
+          const heroCtas = document.querySelectorAll<HTMLElement>("[data-hero-cta] > *");
+          if (heroCtas.length) {
+            tl.from(
+              heroCtas,
+              { y: 24, opacity: 0, duration: 0.7, stagger: 0.1, ease: "power3.out" },
+              "-=0.6",
+            );
+          }
         }
         // Fade-up reveal, staggered within groups
         document.querySelectorAll<HTMLElement>("[data-stagger]").forEach((group) => {
